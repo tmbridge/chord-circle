@@ -1,0 +1,35 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic);
+
+* {
+  font-family: Roboto;
+}
+
+.content h1 {
+  font-weight: 500;
+  text-align: center;
+}
+
+svg#donut-chart {
+  display: block;
+  margin: 0 auto;
+}
+
+text.inner-circle {
+  font-weight: 400;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.arc {
+  cursor: pointer;
+  
+  &:hover {
+    opacity: .85;
+  }
+  
+  text {
+    font-weight: 400;
+    font-size: 50px;
+    color: #fff;
+  }
+}
