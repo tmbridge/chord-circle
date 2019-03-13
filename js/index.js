@@ -96,12 +96,24 @@ var g = svg.selectAll(".arc")
   	.attr("transform", function(d) {
     	return "translate(" + arc.centroid(d) + ")";
   	})
+        .attr("class", "slice-text")
   	.attr("dy", ".35em")
   	.style("text-anchor", "middle")
   	.attr("fill", "#fff")
 		.text(function(d,i) { return seedData[i].label; })
-  
+        .attr("style", function(d,i) {
+            if (seedData[i].label.length >=5) {
+                return "font-size: 1.5rem";
+            }
+            else
+            {
+                return "font-size: 3rem";
+            }
+        }
+        )
+
 g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
+//g.selectAll(".arc text").call(resize, arcText.range([0, width]));
 
 // Append text to the inner circle
 svg.append("text")
@@ -129,7 +141,7 @@ function wrap(text, width) {
         lineHeight = 1.1, // ems
         y = text.attr("y"),
         dy = parseFloat(text.attr("dy")),
-        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em").attr("class", "slice-text-tspan");
     console.log("tspan: " + tspan);
     while (word = words.pop()) {
       line.push(word);
@@ -142,4 +154,30 @@ function wrap(text, width) {
       }
     }
   });
+}
+
+// Resize function to handle labels with longer text
+function resize(text) {
+    text.each(function() {
+        var text = d3.select(this);
+        var words = text.text()
+        var chars = words.length;
+        console.log("chars: " + chars);
+        switch(chars) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                break;
+            case 5:
+            case 6:
+                text.attr("style", "font-size: 1.5rem");
+                break;
+            case 7:
+            case 8:
+                text.attr("style", "font-size: 1.5rem");
+                break;
+        }
+
+    });
 }
