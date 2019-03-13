@@ -3,7 +3,7 @@ var seedData = [{
   "label": "1",
   "value": 25,
 }, {
-  "label": "200000",
+  "label": "2000",
   "value": 25,
 }, {
   "label": "3",
