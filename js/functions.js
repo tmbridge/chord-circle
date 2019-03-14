@@ -1,8 +1,9 @@
-function drawCircle(seedData)
+function drawCircle(circleData)
 {
-    if (typeof seedData === "undefined" || seedData.length == 0) {
-            // Default data to populate the donut pie chart
-            var seedData = [{
+            /*if (typeof circleData === "undefined") {
+            var circleData = [];
+            circleData['homeChord'] = "C";
+            circleData['chordData'] = [{
                 "label": "A",
                 "value": 25,
             }, {
@@ -39,7 +40,7 @@ function drawCircle(seedData)
                 "label": "Fm",
                 "value": 25,
             },];
-        }
+            }*/
 
     // Define size & radius of donut pie chart
     var width = 800,
@@ -82,13 +83,13 @@ function drawCircle(seedData)
 
     // Calculate SVG paths and fill in the colours
     var g = svg.selectAll(".arc")
-        .data(pie(seedData))
+        .data(pie(circleData['chordData']))
         .enter().append("g")
         .attr("class", "arc")
 
         // Make each arc clickable
         .on("click", function (d, i) {
-            window.location = seedData[i].link;
+            window.location = circleData['chordData'][i].link;
         });
 
     // Append the path to each g
@@ -107,7 +108,7 @@ function drawCircle(seedData)
         .style("text-anchor", "middle")
         .attr("fill", "#fff")
         .text(function (d, i) {
-            return seedData[i].label;
+            return circleData['chordData'][i].label;
         })
 
     g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
@@ -128,7 +129,7 @@ function drawCircle(seedData)
         .attr("class", "inner-circle")
         .attr("fill", "#36454f")
         .text(function (d) {
-            return 'G';
+            return circleData['homeChord'];
         });
 
     // Wrap function to handle labels with longer text
@@ -160,24 +161,27 @@ function drawCircle(seedData)
 
 
 function redrawSlices(){
-    seedData = [];
+    circleData = [];
+    circleData['chordData'] = [];
     $.each($(".slice-input"), function (key, value) {
         value = $(this).context.value;
         if (typeof value == "undefined" || value == "") {
             value = "";
         }
 
-        seedData[key] = {
+        circleData['chordData'][key] = {
             "label": value,
             "value": 25,
         };
     });
-    drawCircle(seedData);
+
+    drawCircle(circleData);
 }
 
 /* Bind input-to-slice function */
 function bindSlices() {
-    seedData = [];
+    circleData = [];
+    circleData['chordData'] = [];
     // TODO: replace this closure with a redrawSlices() call,
     // Not sure why but if I do that not, the keyup
     // functionality fails to works.
@@ -187,12 +191,12 @@ function bindSlices() {
             if (typeof value == "undefined" || value == "") {
                 value = "";
             }
-            seedData[key] = {
+            circleData['chordData'][key] = {
                 "label": value,
                 "value": 25,
             };
         });
-        drawCircle(seedData);
+        drawCircle(circleData);
     });
 
     // Redraw when remove or add is clicked.
@@ -201,6 +205,15 @@ function bindSlices() {
 
     // Always redraw
     redrawSlices();
+
+    $('#home-chord-input').keyup(function () {
+        value = $(this).context.value;
+        if (typeof value == "undefined" || value == "") {
+            value = "";
+        }
+        circleData['homeChord'] = value;
+        drawCircle(circleData);
+    });
 }
 
 $(document).ready(function () {
