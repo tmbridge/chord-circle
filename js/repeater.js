@@ -39,6 +39,13 @@ jQuery.fn.extend({
             removeButton.attr('onclick', '$(this).parents(\'.items\').remove()');
 
             $("<div class='items'>" + itemClone.html() + "<div/>").appendTo(repeater);
+
+            /* Bind input-to-slice function */
+            //$(".slice-input").keypress(function() {
+            //    console.log( $(this) );
+            //});
+            bindSlices();
+
         };
         /* find elements */
         var repeater = this;

@@ -1,4 +1,5 @@
 // Seed data to populate the donut pie chart
+var seedData = [];
 var seedData = [{
   "label": "1",
   "value": 25,
@@ -78,8 +79,8 @@ var g = svg.selectAll(".arc")
   .data(pie(seedData))
   .enter().append("g")
   .attr("class", "arc")
-		
-  // Make each arc clickable 
+
+  // Make each arc clickable
   .on("click", function(d, i) {
     window.location = seedData[i].link;
   });
@@ -100,7 +101,7 @@ var g = svg.selectAll(".arc")
   	.style("text-anchor", "middle")
   	.attr("fill", "#fff")
 		.text(function(d,i) { return seedData[i].label; })
-  
+
 g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
 
 // Append text to the inner circle
@@ -130,7 +131,6 @@ function wrap(text, width) {
         y = text.attr("y"),
         dy = parseFloat(text.attr("dy")),
         tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-    console.log("tspan: " + tspan);
     while (word = words.pop()) {
       line.push(word);
       tspan.text(line.join(" "));
