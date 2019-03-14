@@ -11,16 +11,20 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous">
     </script>
+    <script src="js/functions.js"></script>
 </head>
 
 <body>
 
     <div id="container">
-      <div class="content">
+      <div class="content" id="content">
           <h1>Chord Circle</h1>
 
           <svg id="donut-chart"></svg>
-          <script  src="js/index.js"></script>
+          <!--<script  src="js/index.js"></script>-->
+          <script>
+              drawCircle();
+          </script>
 
           <div id="chord-circle-settings-form">
               <div id="repeater">
@@ -34,22 +38,22 @@
                   <div class="form-group">
                       <label for="home-chord" class="col-lg-2 control-label">Home Chord</label>
                       <div class="col-lg-10">
-                          <input type="text" class="form-control" id="home-chord" placeholder="Home" data-name="home-chord">
+                          <input type="text" class="form-control" id="home-chord-input" placeholder="Home" data-name="home-chord-input">
                       </div>
                   </div>
                   <!-- Repeater Items -->
-                  <div class="items" data-group="test">
+                  <div class="items" data-group="slices">
                       <div class="item-content">
                           <div class="form-group">
-                              <label for="slice" class="col-lg-2 control-label"></label>
+                              <label for="" class="col-lg-2 control-label"></label>
                               <div class="col-lg-10">
-                                  <input type="text" class="form-control" id="slice" placeholder="Am" data-name="slice">
+                                  <input type="text" class="slice-input" id="slice-inputs[]" placeholder="Am" data-name="">
                               </div>
                           </div>
                       </div>
                       <!-- Repeater Remove Btn -->
-                      <div class="pull-right repeater-remove-btn">
-                          <button id="remove-btn" class="btn btn-danger" onclick="$(this).parents('.items').remove()">
+                      <div class="pull-right">
+                          <button id="remove-btn" class="btn btn-danger repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
                               Remove
                           </button>
                       </div>
@@ -59,12 +63,6 @@
           </div>
       </div>
     </div>
-
-    <!-- Import Fitty -->
-    <script src="js/fitty.min.js"></script>
-    <script>
-        fitty('.arc');
-    </script>
 
     <!-- Import repeater js  -->
     <script src="./js/repeater.js" type="text/javascript"></script>

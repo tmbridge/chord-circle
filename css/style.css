@@ -16,7 +16,6 @@ svg#donut-chart {
 text.inner-circle {
   font-weight: 400;
   font-size: 50px;
-  text-transform: uppercase;
 }
 
 .arc {
