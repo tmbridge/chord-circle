@@ -1,46 +1,52 @@
 function drawCircle(circleData)
 {
-            /*if (typeof circleData === "undefined") {
-            var circleData = [];
-            circleData['homeChord'] = "C";
-            circleData['chordData'] = [{
-                "label": "A",
-                "value": 25,
-            }, {
-                "label": "Am",
-                "value": 25,
-            }, {
-                "label": "B",
-                "value": 25,
-            }, {
-                "label": "Bm",
-                "value": 25,
-            }, {
-                "label": "C",
-                "value": 25,
-            }, {
-                "label": "Cm",
-                "value": 25,
-            }, {
-                "label": "D",
-                "value": 25,
-            }, {
-                "label": "Dm",
-                "value": 25,
-            }, {
-                "label": "E",
-                "value": 25,
-            }, {
-                "label": "Em",
-                "value": 25,
-            }, {
-                "label": "F",
-                "value": 25,
-            }, {
-                "label": "Fm",
-                "value": 25,
-            },];
-            }*/
+    cookieCircleData = $.cookie("circleData");
+    if (cookieCircleData != "undefined") {
+        cookieCircleData = $.cookie("circleData");
+    }
+    else {
+        // No Cookie Data.  Use defaults.
+        var circleData = [];
+        circleData['homeChord'] = "C";
+        circleData['chordData'] = [{
+            "label": "A",
+            "value": 25,
+        }, {
+            "label": "Am",
+            "value": 25,
+        }, {
+            "label": "B",
+            "value": 25,
+        }, {
+            "label": "Bm",
+            "value": 25,
+        }, {
+            "label": "C",
+            "value": 25,
+        }, {
+            "label": "Cm",
+            "value": 25,
+        }, {
+            "label": "D",
+            "value": 25,
+        }, {
+            "label": "Dm",
+            "value": 25,
+        }, {
+            "label": "E",
+            "value": 25,
+        }, {
+            "label": "Em",
+            "value": 25,
+        }, {
+            "label": "F",
+            "value": 25,
+        }, {
+            "label": "Fm",
+            "value": 25,
+        },];
+
+    }
 
     // Define size & radius of donut pie chart
     var width = 800,
@@ -174,7 +180,6 @@ function redrawSlices(){
             "value": 25,
         };
     });
-
     drawCircle(circleData);
 }
 
@@ -195,6 +200,8 @@ function bindSlices() {
                 "label": value,
                 "value": 25,
             };
+            $.cookie('circleData', circleData, { expires: 7 });
+            console.log($.cookie);
         });
         drawCircle(circleData);
     });
