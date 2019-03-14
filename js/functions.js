@@ -41,8 +41,6 @@ function drawCircle(seedData)
             },];
         }
 
-    console.log("SeedData");
-    console.log(seedData);
     // Define size & radius of donut pie chart
     var width = 800,
         height = 800,
@@ -157,27 +155,52 @@ function drawCircle(seedData)
             }
         });
     }
-    console.log(svg);
+}
 
+
+
+function redrawSlices(){
+    seedData = [];
+    $.each($(".slice-input"), function (key, value) {
+        value = $(this).context.value;
+        if (typeof value == "undefined" || value == "") {
+            value = "";
+        }
+
+        seedData[key] = {
+            "label": value,
+            "value": 25,
+        };
+    });
+    drawCircle(seedData);
 }
 
 /* Bind input-to-slice function */
 function bindSlices() {
     seedData = [];
+    // TODO: replace this closure with a redrawSlices() call,
+    // Not sure why but if I do that not, the keyup
+    // functionality fails to works.
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
-            console.log($(this).context.value);
             value = $(this).context.value;
-            //alert( key + ": " + value );
-            seedData[key]= {
+            if (typeof value == "undefined" || value == "") {
+                value = "";
+            }
+            seedData[key] = {
                 "label": value,
                 "value": 25,
             };
-            drawCircle(seedData);
         });
+        drawCircle(seedData);
     });
-    // console.log(seedData);
-    drawCircle(seedData);
+
+    // Redraw when remove or add is clicked.
+    $(".btn").click(redrawSlices());
+
+
+    // Always redraw
+    redrawSlices();
 }
 
 $(document).ready(function () {

@@ -52,8 +52,8 @@
                           </div>
                       </div>
                       <!-- Repeater Remove Btn -->
-                      <div class="pull-right repeater-remove-btn">
-                          <button id="remove-btn" class="btn btn-danger" onclick="$(this).parents('.items').remove()">
+                      <div class="pull-right">
+                          <button id="remove-btn" class="btn btn-danger repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
                               Remove
                           </button>
                       </div>
