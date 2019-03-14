@@ -17,11 +17,14 @@
 <body>
 
     <div id="container">
-      <div class="content">
+      <div class="content" id="content">
           <h1>Chord Circle</h1>
 
           <svg id="donut-chart"></svg>
-          <script  src="js/index.js"></script>
+          <!--<script  src="js/index.js"></script>-->
+          <script>
+              drawCircle();
+          </script>
 
           <div id="chord-circle-settings-form">
               <div id="repeater">
@@ -60,12 +63,6 @@
           </div>
       </div>
     </div>
-
-    <!-- Import Fitty -->
-    <script src="js/fitty.min.js"></script>
-    <script>
-        fitty('.arc');
-    </script>
 
     <!-- Import repeater js  -->
     <script src="./js/repeater.js" type="text/javascript"></script>
