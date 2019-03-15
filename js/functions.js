@@ -225,4 +225,26 @@ function bindSlices() {
 }
 
 $(document).ready(function () {
+    $("#chords-expand-link").click(function () {
+        console.log($("#left-fly-out-container").css("left"));
+        form = $("#left-fly-out-container")
+
+        // Hide form when showing
+        if(form.css('left') == "0px") {
+           // $("#chord-circle-settings-form").animate({padding: '0'}, 10);
+            //form.toggle();
+            form.animate({left: '-154px'}, 1000,"swing",function () {
+              //  form.toggle();
+            });
+
+        }
+        //Show form when hidden
+        else {
+           // $("#chord-circle-settings-form").animate({padding: '20'}, 10);
+            //form.toggle();
+            form.animate({left: '0px'}, 1000);
+
+        }
+
+    });
 });

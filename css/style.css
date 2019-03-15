@@ -29,3 +29,30 @@ text.inner-circle {
   font-size: 2rem;
   color: #fff;
 }
+
+#left-fly-out-container {
+  position: fixed;
+  top: 0;
+  left: -154px;
+  right: 0;
+  height: 100%;
+  width: 220px;
+}
+
+.menu-container {
+  width: 65px;
+  height: 100%;
+  float: left;
+  background-color: lightblue;
+}
+
+.link {
+  padding: 10px 3px 10px 3px;
+}
+
+.link-icon-image {
+  width: 66%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

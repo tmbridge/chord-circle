@@ -3,9 +3,12 @@
 CSS settings for HTML Div form1 (Dynamically Created using jQuery)
 ------------------------------------------------------------------*/
 div#chord-circle-settings-form{
-    width:150px;
+    position: relative;
+
+    width: 150px;
+    height: 100%;
     border:2px solid #a5a5a5;
-    padding:20px;
+    padding:0px;
     background-color:#f3f3f3;
     border-radius:3px;
     float:left;
