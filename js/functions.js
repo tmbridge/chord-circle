@@ -180,6 +180,8 @@ function redrawSlices(){
         }
     });
 
+    $.cookie('circleData', circleData);
+    console.log($.cookie('circleData'));
     drawCircle(circleData);
 }
 
