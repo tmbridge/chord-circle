@@ -180,6 +180,12 @@ function redrawSlices(){
         }
     });
 
+    console.log("circleData:");
+    console.log(circleData);
+    localStorage.setItem('circleData', JSON.stringify(circleData));
+    console.log("In Cookie:");
+    console.log(JSON.parse(localStorage('circleData')));
+    drawCircle(circleData);
 }
 
 function bindInputListeners() {
