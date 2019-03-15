@@ -179,8 +179,9 @@ function redrawSlices(){
             };
         }
     });
-
-    $.cookie('circleData', circleData);
+    console.log("circleData:");
+    console.log(circleData);
+    $.cookie('circleData', circleData.serialize());
     console.log($.cookie('circleData'));
     drawCircle(circleData);
 }
