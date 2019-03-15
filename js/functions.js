@@ -61,31 +61,22 @@ function populateInputsFromStorage() {
     if(getPropertyCount(storedCircleData) > 0) {
         circleData = storedCircleData;
         chordData = storedCircleData['chordData'];
-        console.log("Stored:");
-        console.log(storedCircleData);
     }
     else {
         circleData = defaultCircleData;
         chordData = defaultCircleData['chordData'];
-        console.log("Default:");
-        console.log(defaultCircleData['homeChord']);
     }
 
     // Add as many chord inputs as there are in storage
     //repeaterItems = $("#repeater").find(".items");
     $(chordData).each(function (key, value) {
-        //$("repeater").addItem($(repeaterItems), key);
         // Set Home Chord Input
         $("#home-chord-input").val(circleData['homeChord']);
         $(".repeater-add-btn").click();
     });
 
     // Set Chords Input
-    chordsForm = $(".slice-input");
-    console.log("ChordData");
-    console.log(chordData);
-    console.log("chordsForm");
-    console.log(chordsForm);
+    chordsForm = $(".slice-input");;
     $(chordsForm).each(function (key, value) {
         chordLabel = chordData[key]['label'];
         $(this).val(chordLabel);
@@ -221,8 +212,6 @@ function redrawSlices(){
     if (typeof value == "undefined" || value == "") {
         value = "";
     }
-    console.log('homevalue');
-    console.log(value);
     circleData['homeChord'] = value;
 
     // Redraw slices
@@ -242,11 +231,7 @@ function bindInputListeners() {
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
             redrawSlices();
-            console.log("circleData:");
-            console.log(circleData);
             localStorage.setItem('circleData', JSON.stringify(circleData));
-            console.log("In Cookie:");
-            console.log(JSON.parse(localStorage.getItem('circleData')));
         });
     });
 
@@ -255,11 +240,7 @@ function bindInputListeners() {
 
     $('#home-chord-input').keyup(function () {
         redrawSlices();
-        console.log("circleData:");
-        console.log(circleData);
         localStorage.setItem('circleData', JSON.stringify(circleData));
-        console.log("In Cookie:");
-        console.log(JSON.parse(localStorage.getItem('circleData')));
     });
 }
 
@@ -288,7 +269,6 @@ $(document).ready(function () {
     bindInputListeners();
 
     $("#chords-expand-link").click(function () {
-        console.log($("#left-fly-out-container").css("left"));
         flyout = $("#left-fly-out-container");
         form = $("#chord-circle-settings-form");
         formWidth = form.width();
