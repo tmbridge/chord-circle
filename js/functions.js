@@ -158,8 +158,6 @@ function drawCircle(circleData)
     }
 }
 
-
-
 function redrawSlices(){
     circleData = [];
     circleData['chordData'] = [];
@@ -185,24 +183,10 @@ function redrawSlices(){
     drawCircle(circleData);
 }
 
-/* Bind input-to-slice function */
-function bindSlices() {
-    circleData = [];
-    circleData['chordData'] = [];
-    // TODO: replace this closure with a redrawSlices() call,
-    // Not sure why but if I do that not, the keyup
-    // functionality fails to works.
+function bindInputListeners() {
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
-            value = $(this).val();
-            console.log(value);
-            if (!(typeof value == "undefined") && !(value == "")) {
-                circleData['chordData'][key] = {
-                    "label": value,
-                    "value": 25,
-                };
-            }
-
+            redrawSlices();
         });
         drawCircle(circleData);
     });
@@ -211,13 +195,17 @@ function bindSlices() {
     $(".btn").click(redrawSlices());
 
     $('#home-chord-input').keyup(function () {
-        value = $(this).val();
-        if (typeof value == "undefined" || value == "") {
-            value = "";
-        }
-        circleData['homeChord'] = value;
+        redrawSlices();
         drawCircle(circleData);
     });
+}
+
+/* Bind input-to-slice function */
+function bindSlices() {
+    circleData = [];
+    circleData['chordData'] = [];
+
+    bindInputListeners();
 
     // Always redraw
     redrawSlices();
@@ -231,6 +219,9 @@ $(document).ready(function () {
     formWidth = form.width();
     targetLeft = -(formWidth+5)+'px';
     flyout.css('left', targetLeft)
+
+    // Bind listeners.
+    bindInputListeners();
 
     $("#chords-expand-link").click(function () {
         console.log($("#left-fly-out-container").css("left"));
