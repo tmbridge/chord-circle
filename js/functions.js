@@ -174,14 +174,12 @@ function redrawSlices(){
     // Redraw slices
     $.each($(".slice-input"), function (key, value) {
         value = $(this).val();
-        if (typeof value == "undefined" || value == "") {
-            value = "";
+        if (!(typeof value == "undefined") && !(value == "")) {
+            circleData['chordData'][key] = {
+                "label": value,
+                "value": 25,
+            };
         }
-
-        circleData['chordData'][key] = {
-            "label": value,
-            "value": 25,
-        };
     });
 
     drawCircle(circleData);
@@ -196,14 +194,15 @@ function bindSlices() {
     // functionality fails to works.
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
-            value = $(this).context.value;
-            if (typeof value == "undefined" || value == "") {
-                value = "";
+            value = $(this).val();
+            console.log(value);
+            if (!(typeof value == "undefined") && !(value == "")) {
+                circleData['chordData'][key] = {
+                    "label": value,
+                    "value": 25,
+                };
             }
-            circleData['chordData'][key] = {
-                "label": value,
-                "value": 25,
-            };
+
         });
         drawCircle(circleData);
     });
@@ -212,7 +211,7 @@ function bindSlices() {
     $(".btn").click(redrawSlices());
 
     $('#home-chord-input').keyup(function () {
-        value = $(this).context.value;
+        value = $(this).val();
         if (typeof value == "undefined" || value == "") {
             value = "";
         }
