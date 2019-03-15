@@ -179,11 +179,7 @@ function redrawSlices(){
             };
         }
     });
-    console.log("circleData:");
-    console.log(circleData);
-    $.cookie('circleData', circleData.serialize());
-    console.log($.cookie('circleData'));
-    drawCircle(circleData);
+
 }
 
 function bindInputListeners() {
@@ -191,7 +187,6 @@ function bindInputListeners() {
         $.each($(".slice-input"), function (key, value) {
             redrawSlices();
         });
-        drawCircle(circleData);
     });
 
     // Redraw when remove or add is clicked.
@@ -199,7 +194,6 @@ function bindInputListeners() {
 
     $('#home-chord-input').keyup(function () {
         redrawSlices();
-        drawCircle(circleData);
     });
 }
 
