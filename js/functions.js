@@ -163,8 +163,17 @@ function drawCircle(circleData)
 function redrawSlices(){
     circleData = [];
     circleData['chordData'] = [];
+
+    // Redraw Home Chord
+    value = $("#home-chord-input").val();
+    if (typeof value == "undefined" || value == "") {
+        value = "";
+    }
+    circleData['homeChord'] = value;
+
+    // Redraw slices
     $.each($(".slice-input"), function (key, value) {
-        value = $(this).context.value;
+        value = $(this).val();
         if (typeof value == "undefined" || value == "") {
             value = "";
         }
@@ -202,10 +211,6 @@ function bindSlices() {
     // Redraw when remove or add is clicked.
     $(".btn").click(redrawSlices());
 
-
-    // Always redraw
-    redrawSlices();
-
     $('#home-chord-input').keyup(function () {
         value = $(this).context.value;
         if (typeof value == "undefined" || value == "") {
@@ -214,6 +219,9 @@ function bindSlices() {
         circleData['homeChord'] = value;
         drawCircle(circleData);
     });
+
+    // Always redraw
+    redrawSlices();
 }
 
 $(document).ready(function () {
