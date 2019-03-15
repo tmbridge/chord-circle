@@ -156,8 +156,6 @@ function drawCircle(circleData)
             return circleData['chordData'][i].label;
         })
 
-    g.selectAll(".arc text").call(wrap, arcText.range([0, width]));
-
     // Append text to the inner circle
     svg.append("text")
         .attr("dy", "-1.2em")
