@@ -1,46 +1,100 @@
+function getPropertyCount(obj) {
+    var count = 0,
+        key;
+
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+function populateInputsFromStorage() {
+
+    // Define defaults for when there is no store.
+    var defaultCircleData = {};
+    defaultCircleData['homeChord'] = "C";
+    defaultCircleData['chordData'] = [{
+        "label": "A",
+        "value": 25,
+    }, {
+        "label": "Am",
+        "value": 25,
+    }, {
+        "label": "B",
+        "value": 25,
+    }, {
+        "label": "Bm",
+        "value": 25,
+    }, {
+        "label": "C",
+        "value": 25,
+    }, {
+        "label": "Cm",
+        "value": 25,
+    }, {
+        "label": "D",
+        "value": 25,
+    }, {
+        "label": "Dm",
+        "value": 25,
+    }, {
+        "label": "E",
+        "value": 25,
+    }, {
+        "label": "Em",
+        "value": 25,
+    }, {
+        "label": "F",
+        "value": 25,
+    }, {
+        "label": "Fm",
+        "value": 25,
+    },];
+
+    var storedCircleData = {};
+    storedCircleData = JSON.parse(localStorage.getItem('circleData'));
+
+    // Load store if exists, otherwise load defaults.
+    if(getPropertyCount(storedCircleData) > 0) {
+        circleData = storedCircleData;
+        chordData = storedCircleData['chordData'];
+        console.log("Stored:");
+        console.log(storedCircleData);
+    }
+    else {
+        circleData = defaultCircleData;
+        chordData = defaultCircleData['chordData'];
+        console.log("Default:");
+        console.log(defaultCircleData['homeChord']);
+    }
+
+    // Add as many chord inputs as there are in storage
+    //repeaterItems = $("#repeater").find(".items");
+    $(chordData).each(function (key, value) {
+        //$("repeater").addItem($(repeaterItems), key);
+        // Set Home Chord Input
+        $("#home-chord-input").val(circleData['homeChord']);
+        $(".repeater-add-btn").click();
+    });
+
+    // Set Chords Input
+    chordsForm = $(".slice-input");
+    console.log("ChordData");
+    console.log(chordData);
+    console.log("chordsForm");
+    console.log(chordsForm);
+    $(chordsForm).each(function (key, value) {
+        chordLabel = chordData[key]['label'];
+        $(this).val(chordLabel);
+    });
+
+}
+
 function drawCircle(circleData)
 {
-            /*if (typeof circleData === "undefined") {
-            var circleData = [];
-            circleData['homeChord'] = "C";
-            circleData['chordData'] = [{
-                "label": "A",
-                "value": 25,
-            }, {
-                "label": "Am",
-                "value": 25,
-            }, {
-                "label": "B",
-                "value": 25,
-            }, {
-                "label": "Bm",
-                "value": 25,
-            }, {
-                "label": "C",
-                "value": 25,
-            }, {
-                "label": "Cm",
-                "value": 25,
-            }, {
-                "label": "D",
-                "value": 25,
-            }, {
-                "label": "Dm",
-                "value": 25,
-            }, {
-                "label": "E",
-                "value": 25,
-            }, {
-                "label": "Em",
-                "value": 25,
-            }, {
-                "label": "F",
-                "value": 25,
-            }, {
-                "label": "Fm",
-                "value": 25,
-            },];
-            }*/
 
     // Define size & radius of donut pie chart
     var width = 800,
@@ -167,6 +221,8 @@ function redrawSlices(){
     if (typeof value == "undefined" || value == "") {
         value = "";
     }
+    console.log('homevalue');
+    console.log(value);
     circleData['homeChord'] = value;
 
     // Redraw slices
@@ -179,12 +235,6 @@ function redrawSlices(){
             };
         }
     });
-
-    console.log("circleData:");
-    console.log(circleData);
-    localStorage.setItem('circleData', JSON.stringify(circleData));
-    console.log("In Cookie:");
-    console.log(JSON.parse(localStorage.getItem('circleData')));
     drawCircle(circleData);
 }
 
@@ -192,6 +242,11 @@ function bindInputListeners() {
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
             redrawSlices();
+            console.log("circleData:");
+            console.log(circleData);
+            localStorage.setItem('circleData', JSON.stringify(circleData));
+            console.log("In Cookie:");
+            console.log(JSON.parse(localStorage.getItem('circleData')));
         });
     });
 
@@ -200,6 +255,11 @@ function bindInputListeners() {
 
     $('#home-chord-input').keyup(function () {
         redrawSlices();
+        console.log("circleData:");
+        console.log(circleData);
+        localStorage.setItem('circleData', JSON.stringify(circleData));
+        console.log("In Cookie:");
+        console.log(JSON.parse(localStorage.getItem('circleData')));
     });
 }
 
@@ -222,6 +282,7 @@ $(document).ready(function () {
     formWidth = form.width();
     targetLeft = -(formWidth+5)+'px';
     flyout.css('left', targetLeft)
+    populateInputsFromStorage();
 
     // Bind listeners.
     bindInputListeners();
