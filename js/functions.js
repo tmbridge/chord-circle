@@ -159,7 +159,7 @@ function drawCircle(circleData)
 }
 
 function redrawSlices(){
-    circleData = [];
+    circleData = {};
     circleData['chordData'] = [];
 
     // Redraw Home Chord
@@ -184,7 +184,7 @@ function redrawSlices(){
     console.log(circleData);
     localStorage.setItem('circleData', JSON.stringify(circleData));
     console.log("In Cookie:");
-    console.log(JSON.parse(localStorage('circleData')));
+    console.log(JSON.parse(localStorage.getItem('circleData')));
     drawCircle(circleData);
 }
 
@@ -205,7 +205,7 @@ function bindInputListeners() {
 
 /* Bind input-to-slice function */
 function bindSlices() {
-    circleData = [];
+    circleData = {};
     circleData['chordData'] = [];
 
     bindInputListeners();
