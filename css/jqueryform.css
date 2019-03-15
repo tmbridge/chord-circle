@@ -4,7 +4,6 @@ CSS settings for HTML Div form1 (Dynamically Created using jQuery)
 ------------------------------------------------------------------*/
 div#chord-circle-settings-form{
     position: relative;
-
     width: 200px;
     height: 100%;
     border:2px solid #a5a5a5;
@@ -13,6 +12,7 @@ div#chord-circle-settings-form{
     border-radius:3px;
     float:left;
     text-align:center;
+    overflow: scroll;
 }
 h3,p{
     text-align:center;
