@@ -240,6 +240,17 @@ function bindInputListeners() {
         redrawSlices();
         localStorage.setItem('circleData', JSON.stringify(circleData));
     });
+
+    // Bind random chord generator.
+    $(".random-chord-button").click(function () {
+        randomChord = getRandomChord();
+        circleData = JSON.parse(localStorage.getItem('circleData'));
+        index = $( ".random-chord-button" ).index( this );
+        circleData['chordData'][index] = randomChord;
+        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateInputsFromStorage();
+        redrawSlices();
+    });
 }
 
 /* Bind input-to-slice function */
@@ -267,23 +278,18 @@ $(document).ready(function () {
     bindInputListeners();
 
     $("#chords-expand-link").click(function () {
-        flyout = $("#left-fly-out-container");
-        form = $("#chord-circle-settings-form");
-        formWidth = form.width();
-        targetLeft = -(formWidth+5)+'px';
-
         // Hide form when showing
         if(flyout.css('left') == "0px") {
-            flyout.animate({left: targetLeft}, 1000,"swing",function () {
+            flyout.animate({left: targetLeft}, 200,"swing",function () {
             });
         }
         //Show form when hidden
         else {
-            flyout.animate({left: '0px'}, 1000,"swing",function () {
+            flyout.animate({left: '0px'}, 200,"swing",function () {
             });
         }
         // Toggle arrow image
-        $('.arrow').toggle(1000, 'swing');
+        $('.arrow').toggle(200, 'swing');
     });
 
     // Bind random circle generator.
@@ -293,4 +299,11 @@ $(document).ready(function () {
         populateInputsFromStorage();
         redrawSlices();
     });
+
+    // Show flyout if setting is set to show on load.
+    showFlyoutOnLoad = 1;
+    if(showFlyoutOnLoad == 1) {
+        flyout.css('left', "0px");
+    }
+
 });
