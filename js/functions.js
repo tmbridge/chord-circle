@@ -244,8 +244,9 @@ function bindInputListeners() {
     // Bind random chord generator.
     $(".random-chord-button").click(function () {
         randomChord = getRandomChord();
-        console.log($(this).index());
         circleData = JSON.parse(localStorage.getItem('circleData'));
+        index = $( ".random-chord-button" ).index( this );
+        circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
         redrawSlices();
