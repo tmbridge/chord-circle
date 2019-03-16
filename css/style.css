@@ -55,4 +55,26 @@ text.inner-circle {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  float: left;
+}
+
+.arrow {
+  width: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  float: left;
+  top: 8px;
+  left: 5px;
+}
+
+.arrow-left {
+  display: none;
+  left: 2px;
+}
+
+.arrow-right {
+
 }
