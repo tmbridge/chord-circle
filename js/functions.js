@@ -276,13 +276,14 @@ $(document).ready(function () {
         if(flyout.css('left') == "0px") {
             flyout.animate({left: targetLeft}, 1000,"swing",function () {
             });
-
         }
         //Show form when hidden
         else {
-            flyout.animate({left: '0px'}, 1000);
+            flyout.animate({left: '0px'}, 1000,"swing",function () {
+            });
         }
-
+        // Toggle arrow image
+        $('.arrow').toggle(1000, 'swing');
     });
 
     // Bind random circle generator.
