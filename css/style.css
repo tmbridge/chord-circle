@@ -71,10 +71,9 @@ text.inner-circle {
 }
 
 .arrow-left {
-  display: none;
   left: 2px;
 }
 
 .arrow-right {
-
+  display: none;
 }
