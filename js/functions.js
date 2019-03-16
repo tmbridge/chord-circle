@@ -68,20 +68,20 @@ function populateInputsFromStorage() {
     }
 
     // Add as many chord inputs as there are in storage
-    //repeaterItems = $("#repeater").find(".items");
-    $(chordData).each(function (key, value) {
-        // Set Home Chord Input
+    while ((chordData.length) > ($('.slice-input').length)) {
         $("#home-chord-input").val(circleData['homeChord']);
         $(".repeater-add-btn").click();
-    });
+    }
 
     // Set Chords Input
-    chordsForm = $(".slice-input");;
+    chordsForm = $(".slice-input");
     $(chordsForm).each(function (key, value) {
         chordLabel = chordData[key]['label'];
         $(this).val(chordLabel);
     });
 
+    // Set Home Chord Input.
+    $("#home-chord-input").val(circleData['homeChord']);
 }
 
 function drawCircle(circleData)
@@ -283,5 +283,13 @@ $(document).ready(function () {
             flyout.animate({left: '0px'}, 1000);
         }
 
+    });
+
+    // Bind random circle generator.
+    $("#random-circle-btn").click(function () {
+        circleData = getRandomCircle($(".items").length);
+        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateInputsFromStorage();
+        redrawSlices();
     });
 });

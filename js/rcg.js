@@ -158,9 +158,7 @@ function getRandomCircle(numSlices) {
     for (i = 0; i < numSlices; i++) {
         randomCircleData['chordData'][i] = getRandomChord();
     }
-    randomCircleData['homeChord'] = getRandomChord();
+    randomCircleData['homeChord'] = getRandomChord()['label'];
 
     return randomCircleData;
 }
-
-console.log(getRandomCircle(4));
