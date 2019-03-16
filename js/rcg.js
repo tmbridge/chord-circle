@@ -25,6 +25,8 @@ function getChordQualities() {
         "fullName": "Minor 7",
     }];
 
+    // TODO: filter chordQualities by 'allowed qualities' from settings form.
+
     return chordQualities;
 }
 
@@ -131,6 +133,34 @@ function getChordRootNotes() {
         "fullName": "G Sharp",
     }];
 
+    // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
+
     return chordRootNotes;
 }
 
+function getRandomChord() {
+    rootNotes = getChordRootNotes();
+    qualities = getChordQualities();
+
+    randomRootNote = rootNotes[Math.floor(Math.random()*rootNotes.length)]['label'];
+    randomQuality = qualities[Math.floor(Math.random()*qualities.length)]['label'];
+    randomChord = {
+        'label' : randomRootNote + randomQuality,
+        'value' : '',
+    };
+
+    return randomChord;
+}
+
+function getRandomCircle(numSlices) {
+    randomCircleData = {};
+    randomCircleData['chordData'] = [];
+    for (i = 0; i < numSlices; i++) {
+        randomCircleData['chordData'][i] = getRandomChord();
+    }
+    randomCircleData['homeChord'] = getRandomChord();
+
+    return randomCircleData;
+}
+
+console.log(getRandomCircle(4));
