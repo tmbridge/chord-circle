@@ -251,6 +251,7 @@ function bindInputListeners() {
         randomChord = getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
+        console.log(index);
         circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
@@ -267,7 +268,7 @@ function bindInputListeners() {
         // Swap chords form inputs index to home, home to index.
         // Not yet sure why this click even runs multiple times
         // but ever subsequent run after the first the index is -1.
-        if (index > -1) {
+        //if (index > -1) {
             temp = circleData['homeChord'];
             circleData['homeChord'] = circleData['chordData'][index];
             circleData['chordData'][index] = temp;
@@ -276,7 +277,7 @@ function bindInputListeners() {
             localStorage.setItem('circleData', JSON.stringify(circleData));
             populateInputsFromStorage();
             redrawSlices();
-        }
+       // }
     }));
 }
 
