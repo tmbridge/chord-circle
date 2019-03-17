@@ -35,8 +35,8 @@ text.inner-circle {
   top: 0;
   left: -154px;
   right: 0;
+  width: 20%;
   height: 100%;
-
 }
 
 .menu-container {
@@ -76,4 +76,8 @@ text.inner-circle {
 
 .arrow-right {
   display: none;
+}
+
+.arc {
+  z-index: 1000;
 }

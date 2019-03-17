@@ -15,7 +15,7 @@ function populateInputsFromStorage() {
 
     // Define defaults for when there is no store.
     var defaultCircleData = {};
-    defaultCircleData['homeChord'] = "C";
+    defaultCircleData['homeChord'] = {"label" : "C", "value" : 25};
     defaultCircleData['chordData'] = [{
         "label": "A",
         "value": 25,
@@ -69,7 +69,7 @@ function populateInputsFromStorage() {
 
     // Add as many chord inputs as there are in storage
     while ((chordData.length) > ($('.slice-input').length)) {
-        $("#home-chord-input").val(circleData['homeChord']);
+        $("#home-chord-input").val(circleData['homeChord']['label']);
         $(".repeater-add-btn").click();
     }
 
@@ -81,7 +81,7 @@ function populateInputsFromStorage() {
     });
 
     // Set Home Chord Input.
-    $("#home-chord-input").val(circleData['homeChord']);
+    $("#home-chord-input").val(circleData['homeChord']['label']);
 }
 
 function drawCircle(circleData)
@@ -134,7 +134,7 @@ function drawCircle(circleData)
 
         // Make each arc clickable
         .on("click", function (d, i) {
-            window.location = circleData['chordData'][i].link;
+            //window.location = circleData['chordData'][i].link;
         });
 
     // Append the path to each g
@@ -172,7 +172,7 @@ function drawCircle(circleData)
         .attr("class", "inner-circle")
         .attr("fill", "#36454f")
         .text(function (d) {
-            return circleData['homeChord'];
+            return circleData['homeChord']['label'];
         });
 
     // Wrap function to handle labels with longer text
@@ -204,13 +204,15 @@ function drawCircle(circleData)
 function redrawSlices(){
     circleData = {};
     circleData['chordData'] = [];
+    circleData['homeChord'] = {};
 
     // Redraw Home Chord
     value = $("#home-chord-input").val();
     if (typeof value == "undefined" || value == "") {
         value = "";
     }
-    circleData['homeChord'] = value;
+    circleData['homeChord']['label'] = value;
+    circleData['homeChord']['value'] = "";
 
     // Redraw slices
     $.each($(".slice-input"), function (key, value) {
@@ -226,6 +228,9 @@ function redrawSlices(){
 }
 
 function bindInputListeners() {
+    // TODO: Set circleData from localStorage here.
+    circleData = JSON.parse(localStorage.getItem('circleData'));
+
     $(".slice-input").keyup(function () {
         $.each($(".slice-input"), function (key, value) {
             redrawSlices();
@@ -246,11 +251,34 @@ function bindInputListeners() {
         randomChord = getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
+        console.log(index);
         circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
         redrawSlices();
     });
+
+    // Bind home-swapper click event.
+    //$(".arc").click(function () {
+    $("#donut-chart").on('click', '.arc', (function (slice) {
+        // Get index of clicked slice.
+        sliceText = $(this).find("text");
+        index = $( "text" ).index( sliceText );
+
+        // Swap chords form inputs index to home, home to index.
+        // Not yet sure why this click even runs multiple times
+        // but ever subsequent run after the first the index is -1.
+        //if (index > -1) {
+            temp = circleData['homeChord'];
+            circleData['homeChord'] = circleData['chordData'][index];
+            circleData['chordData'][index] = temp;
+
+            // Redraw.
+            localStorage.setItem('circleData', JSON.stringify(circleData));
+            populateInputsFromStorage();
+            redrawSlices();
+       // }
+    }));
 }
 
 /* Bind input-to-slice function */
