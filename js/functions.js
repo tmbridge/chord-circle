@@ -248,12 +248,9 @@ function bindInputListeners() {
 
     // Bind random chord generator.
     $(".random-chord-button").click(function () {
-        console.log("Clicked RCG button.");
         randomChord = getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
-        console.log("Index of element:");
-        console.log(index);
         circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
@@ -261,29 +258,19 @@ function bindInputListeners() {
     });
 
     // Bind home-swapper click event.
-    console.log($(".arc"));
     //$(".arc").click(function () {
     $("#donut-chart").on('click', '.arc', (function (slice) {
-        console.log(slice);
-        console.log("Clicked slice.");
-        console.log ($(this));
         // Get index of clicked slice.
         sliceText = $(this).find("text");
-        console.log($( "text" ));
-        console.log(sliceText);
         index = $( "text" ).index( sliceText );
-        console.log(index);
 
         // Swap chords form inputs index to home, home to index.
+        // Not yet sure why this click even runs multiple times
+        // but ever subsequent run after the first the index is -1.
         if (index > -1) {
-            console.log(circleData);
             temp = circleData['homeChord'];
-            console.log(temp);
-            console.log(circleData);
             circleData['homeChord'] = circleData['chordData'][index];
-            console.log(circleData);
             circleData['chordData'][index] = temp;
-            console.log(circleData);
 
             // Redraw.
             localStorage.setItem('circleData', JSON.stringify(circleData));
