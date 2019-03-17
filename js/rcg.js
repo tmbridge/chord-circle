@@ -155,10 +155,12 @@ function getRandomChord() {
 function getRandomCircle(numSlices) {
     randomCircleData = {};
     randomCircleData['chordData'] = [];
+    randomCircleData['homeChord'] = {};
     for (i = 0; i < numSlices; i++) {
         randomCircleData['chordData'][i] = getRandomChord();
     }
-    randomCircleData['homeChord'] = getRandomChord()['label'];
+    randomCircleData['homeChord']['label'] = getRandomChord()['label'];
+    randomCircleData['homeChord']['value'] = "";
 
     return randomCircleData;
 }

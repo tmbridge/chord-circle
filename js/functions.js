@@ -257,6 +257,17 @@ function bindInputListeners() {
         redrawSlices();
     });
 
+    // Bind random home chord generator.
+    $(".random-home-chord-button").click(function () {
+        randomChord = getRandomChord();
+        circleData = JSON.parse(localStorage.getItem('circleData'));
+        index = $( ".random-home-chord-button" ).index( this );
+        circleData['homeChord'] = randomChord;
+        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateInputsFromStorage();
+        redrawSlices();
+    });
+
     // Bind home-swapper click event.
     //$(".arc").click(function () {
     $("#donut-chart").on('click', '.arc', (function (slice) {
