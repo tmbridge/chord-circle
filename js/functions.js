@@ -251,7 +251,6 @@ function bindInputListeners() {
         randomChord = getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
-        console.log(index);
         circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
@@ -266,18 +265,14 @@ function bindInputListeners() {
         index = $( "text" ).index( sliceText );
 
         // Swap chords form inputs index to home, home to index.
-        // Not yet sure why this click even runs multiple times
-        // but ever subsequent run after the first the index is -1.
-        //if (index > -1) {
-            temp = circleData['homeChord'];
-            circleData['homeChord'] = circleData['chordData'][index];
-            circleData['chordData'][index] = temp;
+        temp = circleData['homeChord'];
+        circleData['homeChord'] = circleData['chordData'][index];
+        circleData['chordData'][index] = temp;
 
-            // Redraw.
-            localStorage.setItem('circleData', JSON.stringify(circleData));
-            populateInputsFromStorage();
-            redrawSlices();
-       // }
+        // Redraw.
+        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateInputsFromStorage();
+        redrawSlices();
     }));
 }
 
@@ -293,6 +288,14 @@ function bindSlices() {
 }
 
 $(document).ready(function () {
+
+    // Clear localStorage if there is a new version.
+    thisVersion = 1;
+    storedVersion = localStorage.getItem('version');
+    if(storedVersion != thisVersion) {
+        localStorage.setItem('circleData', JSON.stringify({}));
+        localStorage.setItem('version', thisVersion);
+    }
 
     // Initializations.
     flyout = $("#left-fly-out-container");
@@ -333,5 +336,4 @@ $(document).ready(function () {
     if(showFlyoutOnLoad == 1) {
         flyout.css('left', "0px");
     }
-
 });
