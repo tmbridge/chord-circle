@@ -65,6 +65,9 @@ function populateInputsFromStorage() {
     else {
         circleData = defaultCircleData;
         chordData = defaultCircleData['chordData'];
+
+        // If using defaults, set the storage to the defaults.
+        localStorage.setItem('circleData', JSON.stringify(circleData));
     }
 
     // Add as many chord inputs as there are in storage
