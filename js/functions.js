@@ -336,4 +336,30 @@ $(document).ready(function () {
     if(showFlyoutOnLoad == 1) {
         flyout.css('left', "0px");
     }
+
+    // Add home swap help dialog.
+    if (localStorage.getItem('dialogs-home-swap') != 1) {
+        $('#home-chord-swap-dialog').first().dialog({
+            title: "Home Chord Swapping",
+            autoOpen : true,
+            classes: {
+                "ui-dialog": "ui-corner-all",
+                "ui-dialog-titlebar": "ui-corner-all",
+            },
+            buttons: [
+                {
+                    text: "OK",
+                    icon: "ui-icon-heart",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                        localStorage.setItem("dialogs-home-swap", 1);
+                    }
+
+                    // Uncommenting the following line would hide the text,
+                    // resulting in the label being used as a tooltip
+                    //showText: false
+                }
+            ]
+        });
+    }
 });
