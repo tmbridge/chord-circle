@@ -1,0 +1,57 @@
+@import "http://fonts.googleapis.com/css?family=Raleway";
+/*-----------------------------------------------------------------
+CSS settings for HTML Div form1 (Dynamically Created using jQuery)
+------------------------------------------------------------------*/
+div#chord-circle-settings-form{
+    position: relative;
+    width: 200px;
+    height: 100%;
+    border:2px solid #a5a5a5;
+    padding:0px;
+    background-color:#f3f3f3;
+    border-radius:3px;
+    float:left;
+    text-align:center;
+    overflow: scroll;
+}
+h3,p{
+    text-align:center;
+    font-family:'Raleway',sans-serif;
+    color:#006400
+}
+input{
+    width:74%;
+    margin:10px 0;
+    padding:5px;
+    height:35px;
+    box-shadow:1px 1px 1px 1px gray;
+    border-radius:3px;
+    font-size: 22px;
+    text-align: center;
+}
+input#submit{
+    width:100%;
+    margin:10px 15px 10px 0;
+    padding:5px;
+    background-color:#3fb8e8;
+    box-shadow:0 3px 0 0 #3293ba;
+    border-radius:3px;
+    color:#fff;
+    height:41px;
+    font-size:16px
+}
+textarea{
+    margin:10px 0;
+    padding:5px;
+    box-shadow:1px 1px 1px 1px gray;
+    border-radius:3px
+}
+div#container{
+    margin:50px auto;
+    width:960px
+}
+h2{
+    font-family:'Raleway',sans-serif;
+    color:#006400;
+    text-shadow:1px 1px 1px gray
+}
