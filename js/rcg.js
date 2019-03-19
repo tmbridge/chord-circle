@@ -6,6 +6,39 @@ var RandomChordGenerator = function() {
      * Variables accessible
      * in the class
      */
+    var settingShortcuts = [{
+
+        // rootNote Shortcuts.
+        "type" : "rootNote",
+        "label" : "Naturals",
+        "associated-class" : "natural",
+    }, {
+        "type" : "rootNote",
+        "label" : "Flats",
+        "associated-class" : "flat",
+    }, {
+        "type" : "rootNote",
+        "label" : "Sharps",
+        "associated-class" : "sharp",
+    }, {
+
+        // chordQuality Shortcuts.
+        "type" : "chordQuality",
+        "label" : "Major",
+        "associated-class" : "major",
+    }, {
+        "type" : "chordQuality",
+        "label" : "Minor",
+        "associated-class" : "minor",
+    }, {
+        "type" : "chordQuality",
+        "label" : "Suspended",
+        "associated-class" : "sus",
+    }, {
+        "type" : "chordQuality",
+        "label" : "7",
+        "associated-class" : "7",
+    }];
 
     var allChordQualities = [{
         "label": "",
@@ -41,7 +74,7 @@ var RandomChordGenerator = function() {
         "fullName": "A Natural",
     }, {
         "label": "A#",
-        "accidental": "Sharp",
+        "accidental": "sharp",
         "fullName": "A Sharp",
     }, {
 
@@ -63,7 +96,7 @@ var RandomChordGenerator = function() {
         "fullName": "C Natural",
     }, {
         "label": "C#",
-        "accidental": "Sharp",
+        "accidental": "sharp",
         "fullName": "C Sharp",
     }, {
 
@@ -77,7 +110,7 @@ var RandomChordGenerator = function() {
         "fullName": "D Natural",
     }, {
         "label": "D#",
-        "accidental": "Sharp",
+        "accidental": "sharp",
         "fullName": "D Sharp",
     }, {
 
@@ -97,7 +130,7 @@ var RandomChordGenerator = function() {
         "fullName": "F Natural",
     }, {
         "label": "F#",
-        "accidental": "Sharp",
+        "accidental": "sharp",
         "fullName": "F Sharp",
 
     }, {
@@ -111,7 +144,7 @@ var RandomChordGenerator = function() {
         "fullName": "G Natural",
     }, {
         "label": "G#",
-        "accidental": "Sharp",
+        "accidental": "sharp",
         "fullName": "G Sharp",
     }];
 
@@ -229,8 +262,7 @@ var RandomChordGenerator = function() {
 
             $.each(dataSet['data'], function (key, option) {
                 // Create input container.
-                inputContainer = $('<div></div>')
-                    .addClass("settings-form-input-container");
+                inputContainer = $('<div></div>');
 
                 label = this['label'];
                 fullName = this['fullName'];
@@ -248,11 +280,17 @@ var RandomChordGenerator = function() {
                     checkboxLabel = fullName;
                 }
 
-                // Append class to container.
-                inputContainer.addClass(dataSet['type'] + "-setting-container");
+                // Append classes to container.
+                containerClasses = [
+                    'settings-form-input-container',
+                    dataSet['type'] + "-setting-container",
+                    accidental,
+                    quality
+                ];
+                inputContainer.addClass(containerClasses.join(' '));
 
                 // Build the checkbox
-                classes = [
+                inputClasses = [
                     'setting-checkbox',
                     dataSet['type'] + "-setting",
                     accidental,
@@ -263,7 +301,7 @@ var RandomChordGenerator = function() {
                     id: dataSet['type'] + "-setting-" + key,
                     name: dataSet['type'] + "-setting-" + key,
                     value: checkboxLabel,
-                    class: classes.join(' '),
+                    class: inputClasses.join(' '),
                     "fullName": fullName,
                     "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
                 });
