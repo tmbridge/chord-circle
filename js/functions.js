@@ -324,7 +324,32 @@ $(document).ready(function () {
 
     $(".flyout-expander").click(function () {
         console.log(this);
+
+        // Hide flyout when showing if not switching panes
+        if (flyout.css('left') == "0px") {
+            if($(this).hasClass('clicked')) {
+                flyout.animate({left: targetLeft}, 200, "swing", function () {
+                    // If closing, remove all clicked classes.
+                    $(".flyout-expander").removeClass('clicked');
+                });
+                // Toggle arrow image
+                $('.chord-arrow').toggle(200, 'swing');
+            }
+        }
+        //Show flyout when hidden
+        else {
+            flyout.animate({left: '0px'}, 200, "swing", function () {
+            });
+            // Toggle arrow image
+            $('.chord-arrow').toggle(200, 'swing');
+        }
+
         clickedId = $(this).attr('id');
+
+        // Add clicked class to element to track which one was used to open the flyout.
+        $(".flyout-expander").removeClass('clicked');
+        $(this).addClass('clicked');
+
         if(clickedId == "chords-expand-link") {
             $("#chord-circle-chords-form").show();
             $("#chord-circle-settings-form").hide();
@@ -333,19 +358,6 @@ $(document).ready(function () {
             $("#chord-circle-chords-form").hide();
             $("#chord-circle-settings-form").show();
         }
-
-        // Hide flyout when showing
-        if(flyout.css('left') == "0px") {
-            flyout.animate({left: targetLeft}, 200,"swing",function () {
-            });
-        }
-        //Show flyout when hidden
-        else {
-            flyout.animate({left: '0px'}, 200,"swing",function () {
-            });
-        }
-        // Toggle arrow image
-        $('.chord-arrow').toggle(200, 'swing');
     });
 
     // Bind random circle generator.
@@ -357,8 +369,9 @@ $(document).ready(function () {
     });
 
     // Show flyout if setting is set to show on load.
-    showFlyoutOnLoad = 1;
-    if(showFlyoutOnLoad == 1) {
+    showChordsFlyoutOnLoad = 1;
+    if(showChordsFlyoutOnLoad == 1) {
+        $("#chords-expand-link").addClass('clicked');
         flyout.css('left', "0px");
     }
 
