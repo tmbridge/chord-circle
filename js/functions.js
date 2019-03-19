@@ -333,7 +333,7 @@ $(document).ready(function () {
                     $(".flyout-expander").removeClass('clicked');
                 });
                 // Toggle arrow image
-                $('.chord-arrow').toggle(200, 'swing');
+                $('.arrow').toggle(200, 'swing');
             }
         }
         //Show flyout when hidden
@@ -341,7 +341,7 @@ $(document).ready(function () {
             flyout.animate({left: '0px'}, 200, "swing", function () {
             });
             // Toggle arrow image
-            $('.chord-arrow').toggle(200, 'swing');
+            $('.arrow').toggle(200, 'swing');
         }
 
         clickedId = $(this).attr('id');
