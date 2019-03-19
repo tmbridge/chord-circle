@@ -2,8 +2,12 @@
 
 /* Function to return all possible chord qualities. */
 function getChordQualities() {
-    var chordQualities = {}
-    chordQualities = [{
+
+    var storedChordQualities = {};
+    storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
+
+    var defaultChordQualities = {}
+    defaultChordQualities = [{
         "label" : "",
         "id" : "major",
         "fullName": "Major",
@@ -25,6 +29,18 @@ function getChordQualities() {
         "fullName": "Minor 7",
     }];
 
+    // Load store if exists, otherwise load defaults.
+    chordQualities = {};
+    if(getPropertyCount(storedChordQualities) > 0) {
+        chordQualities = storedChordQualities;
+    }
+    else {
+        chordQualities = defaultChordQualities;
+
+        // If using defaults, set the storage to the defaults.
+        localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
+    }
+
     // TODO: filter chordQualities by 'allowed qualities' from settings form.
 
     return chordQualities;
@@ -32,8 +48,12 @@ function getChordQualities() {
 
 /* Function to return all possible chord root notes. */
 function getChordRootNotes() {
-    var chordRootNotes = {}
-    chordRootNotes = [{
+
+    var storedChordRootNotes = {};
+    storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
+
+    var defaultChordRootNotes = {}
+    defaultChordRootNotes = [{
 
         // A
         "label": "Ab",
@@ -133,8 +153,18 @@ function getChordRootNotes() {
         "fullName": "G Sharp",
     }];
 
-    // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
+    // Load store if exists, otherwise load defaults.
+    chordRootNotes = {};
+    if(getPropertyCount(storedChordRootNotes) > 0) {
+        chordRootNotes = storedChordRootNotes;
+    }
+    else {
+        chordRootNotes = defaultChordRootNotes;
 
+        // If using defaults, set the storage to the defaults.
+        localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
+    }
+    // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
     return chordRootNotes;
 }
 
