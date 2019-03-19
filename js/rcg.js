@@ -9,23 +9,23 @@ var RandomChordGenerator = function() {
 
     var allChordQualities = [{
         "label": "",
-        "id": "major",
+        "quality": "major",
         "fullName": "Major",
     }, {
         "label": "m",
-        "id": "minor",
+        "quality": "minor",
         "fullName": "Minor",
     }, {
         "label": "7",
-        "id": "7",
+        "quality": "7",
         "fullName": "Dominant 7",
     }, {
         "label": "maj7",
-        "id": "maj7",
+        "quality": "maj7",
         "fullName": "Major 7",
     }, {
         "label": "m7",
-        "id": "m7",
+        "quality": "m7",
         "fullName": "Minor 7",
     }];
 
@@ -207,45 +207,83 @@ var RandomChordGenerator = function() {
         settingsFormContainer = $('<div></div>')
             .addClass("");
 
-        // Build form elements for Root Notes
-        $.each(allChordRootNotes, function (key, value) {
-            console.log(this);
+        //Build source data object.
+        var sourceData = {};
+        sourceData['rootNotes'] = {};
+        sourceData['rootNotes']['type'] = 'root-note';
+        sourceData['rootNotes']['header'] = 'Chord Root Notes';
+        sourceData['rootNotes']['data'] = allChordRootNotes;
 
-            // Create input container.
-            inputContainer = $('<div></div>')
-                .addClass("settings-form-input-container");
+        sourceData['chordQualities'] = {};
+        sourceData['chordQualities']['type'] = 'chord-quality';
+        sourceData['chordQualities']['header'] = 'Chord Qualities';
+        sourceData['chordQualities']['data'] = allChordQualities;
 
-            label = this['label'];
-            accidental = this['accidental'];
-            fullName = this['fullName'];
+        // Build form elements
+        $.each(sourceData, function (dataSetKey, dataSet) {
+            // Build and append header.
+            header = $('<h2></h2>')
+                .addClass("settings-form-header")
+                .html(dataSet['header']);
+            settingsFormContainer.append(header);
 
-            // Build the checkbox
-            input = $('<input>', {
-                type :"checkbox",
-                id : "rootNoot-" + key,
-                name : "rootNoot-" + key,
-                value : label,
-                class : "setting-checkbox " + accidental,
-                "fullName" : fullName,
-                "checked" : "checked", // TODO: Determined checked-ness by comparing to localStorage.
+            $.each(dataSet['data'], function (key, option) {
+                // Create input container.
+                inputContainer = $('<div></div>')
+                    .addClass("settings-form-input-container");
+
+                label = this['label'];
+                fullName = this['fullName'];
+
+                // Add specific attributes.
+                accidental = "";
+                quality = "";
+                if (dataSetKey == 'rootNotes') {
+                    accidental = this['accidental'];
+                    checkboxLabel = label;
+                }
+                // Chord Quality specific attributes.
+                else if (dataSetKey == 'chordQualities') {
+                    quality = this['quality'];
+                    checkboxLabel = fullName;
+                }
+
+                // Append class to container.
+                inputContainer.addClass(dataSet['type'] + "-setting-container");
+
+                // Build the checkbox
+                classes = [
+                    'setting-checkbox',
+                    dataSet['type'] + "-setting",
+                    accidental,
+                    quality
+                ];
+                input = $('<input>', {
+                    type: "checkbox",
+                    id: dataSet['type'] + "-setting-" + key,
+                    name: dataSet['type'] + "-setting-" + key,
+                    value: checkboxLabel,
+                    class: classes.join(' '),
+                    "fullName": fullName,
+                    "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
+                });
+
+                // Append label to checkbox
+                label = $('<label>', {
+                    'for': input.attr('id')
+                }).html(input.attr('value'));
+
+                // Append input to container.
+                inputContainer.append(input);
+
+                // Append label to container.
+                inputContainer.append(label);
+
+                // Append input container to form container.
+                settingsFormContainer.append(inputContainer);
+
             });
-
-            // Append label to checkbox
-            label = $('<label>', {
-                'for' : input.attr('id')
-            }).html(input.attr('value'));
-
-            // Append input to container.
-            inputContainer.append(input);
-
-            // Append label to container.
-            inputContainer.append(label);
-
-            // Append input container to form container.
-            settingsFormContainer.append(inputContainer);
-
         });
-        console.log(settingsFormContainer);
         return settingsFormContainer;
     }
 }

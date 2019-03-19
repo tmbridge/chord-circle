@@ -32,10 +32,17 @@ h3,p{
     font-family:'Raleway',sans-serif;
     color:#006400
 }
+
+.settings-form-header {
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
 .settings-form-input-container{
     position: relative;
     float: left;
-    margin:0px 0;
+    margin: 0px 6px 6px 0px;
     padding:10px 0px 3px 0px;
     width: 30%;
     height:25px;
@@ -44,6 +51,12 @@ h3,p{
     font-size: 15px;
     text-align: center;
 }
+
+.chord-quality-setting-container {
+    width: 45%;
+    font-size: 13px;
+}
+
 input#submit{
     width:100%;
     margin:10px 15px 10px 0;
