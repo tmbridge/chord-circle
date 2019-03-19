@@ -322,19 +322,30 @@ $(document).ready(function () {
     // Bind listeners.
     bindInputListeners();
 
-    $("#chords-expand-link").click(function () {
-        // Hide form when showing
+    $(".flyout-expander").click(function () {
+        console.log(this);
+        clickedId = $(this).attr('id');
+        if(clickedId == "chords-expand-link") {
+            $("#chord-circle-chords-form").show();
+            $("#chord-circle-settings-form").hide();
+        }
+        else if(clickedId == "settings-expand-link") {
+            $("#chord-circle-chords-form").hide();
+            $("#chord-circle-settings-form").show();
+        }
+
+        // Hide flyout when showing
         if(flyout.css('left') == "0px") {
             flyout.animate({left: targetLeft}, 200,"swing",function () {
             });
         }
-        //Show form when hidden
+        //Show flyout when hidden
         else {
             flyout.animate({left: '0px'}, 200,"swing",function () {
             });
         }
         // Toggle arrow image
-        $('.arrow').toggle(200, 'swing');
+        $('.chord-arrow').toggle(200, 'swing');
     });
 
     // Bind random circle generator.

@@ -2,7 +2,20 @@
 /*-----------------------------------------------------------------
 CSS settings for HTML Div form1 (Dynamically Created using jQuery)
 ------------------------------------------------------------------*/
+div#chord-circle-chords-form{
+    position: relative;
+    width: 200px;
+    height: 100%;
+    border:2px solid #a5a5a5;
+    padding:0px;
+    background-color:#f3f3f3;
+    border-radius:3px;
+    float:left;
+    text-align:center;
+    overflow: scroll;
+}
 div#chord-circle-settings-form{
+    display: none;
     position: relative;
     width: 200px;
     height: 100%;

@@ -59,7 +59,8 @@ text.inner-circle {
   float: left;
 }
 
-.arrow {
+.chord-arrow,
+.settings-arrow {
   width: 20%;
   display: block;
   margin-left: auto;
