@@ -1,3 +1,5 @@
+var rcg = new RandomChordGenerator();
+
 function getPropertyCount(obj) {
     var count = 0,
         key;
@@ -251,7 +253,7 @@ function bindInputListeners() {
 
     // Bind random chord generator.
     $(".random-chord-button").click(function () {
-        randomChord = getRandomChord();
+        randomChord = rcg.getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
         circleData['chordData'][index] = randomChord;
@@ -262,7 +264,7 @@ function bindInputListeners() {
 
     // Bind random home chord generator.
     $(".random-home-chord-button").click(function () {
-        randomChord = getRandomChord();
+        randomChord = rcg.getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-home-chord-button" ).index( this );
         circleData['homeChord'] = randomChord;
@@ -317,6 +319,8 @@ $(document).ready(function () {
     formWidth = form.width();
     targetLeft = -(formWidth+5)+'px';
     flyout.css('left', targetLeft)
+
+    // Populate Inputs.
     populateInputsFromStorage();
 
     // Bind listeners.
@@ -362,7 +366,7 @@ $(document).ready(function () {
 
     // Bind random circle generator.
     $("#random-circle-btn").click(function () {
-        circleData = getRandomCircle($(".items").length);
+        circleData = rcg.getRandomCircle($(".items").length);
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
         redrawSlices();
