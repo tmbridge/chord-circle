@@ -32,14 +32,16 @@ h3,p{
     font-family:'Raleway',sans-serif;
     color:#006400
 }
-input{
-    width:74%;
-    margin:10px 0;
-    padding:5px;
-    height:35px;
+.settings-form-input-container{
+    position: relative;
+    float: left;
+    margin:0px 0;
+    padding:10px 0px 3px 0px;
+    width: 30%;
+    height:25px;
     box-shadow:1px 1px 1px 1px gray;
     border-radius:3px;
-    font-size: 22px;
+    font-size: 15px;
     text-align: center;
 }
 input#submit{

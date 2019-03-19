@@ -404,4 +404,8 @@ $(document).ready(function () {
             ]
         });
     }
+
+    // Add Settings Form.
+    settingsForm = rcg.getSettingsForm();
+    $("#chord-circle-settings-form").html(settingsForm);
 });

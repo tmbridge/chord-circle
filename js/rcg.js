@@ -7,7 +7,7 @@ var RandomChordGenerator = function() {
      * in the class
      */
 
-    var defaultChordQualities = [{
+    var allChordQualities = [{
         "label": "",
         "id": "major",
         "fullName": "Major",
@@ -29,7 +29,7 @@ var RandomChordGenerator = function() {
         "fullName": "Minor 7",
     }];
 
-    var defaultChordRootNotes = [{
+    var allChordRootNotes = [{
 
         // A
         "label": "Ab",
@@ -44,19 +44,6 @@ var RandomChordGenerator = function() {
         "accidental": "Sharp",
         "fullName": "A Sharp",
     }, {
-
-        // B
-        "label": "Ab",
-        "accidental": "flat",
-        "fullName": "A Flat",
-    }, {
-        "label": "A",
-        "accidental": "natural",
-        "fullName": "A Natural",
-    }, {
-        "label": "A#",
-        "accidental": "Sharp",
-        "fullName": "A Sharp",
 
 
         // B
@@ -78,7 +65,7 @@ var RandomChordGenerator = function() {
         "label": "C#",
         "accidental": "Sharp",
         "fullName": "C Sharp",
-
+    }, {
 
         // D
         "label": "Db",
@@ -92,7 +79,7 @@ var RandomChordGenerator = function() {
         "label": "D#",
         "accidental": "Sharp",
         "fullName": "D Sharp",
-
+    }, {
 
         // E
         "label": "Eb",
@@ -102,9 +89,8 @@ var RandomChordGenerator = function() {
         "label": "E",
         "accidental": "natural",
         "fullName": "E Natural",
+
     }, {
-
-
         // F
         "label": "F",
         "accidental": "natural",
@@ -114,7 +100,7 @@ var RandomChordGenerator = function() {
         "accidental": "Sharp",
         "fullName": "F Sharp",
 
-
+    }, {
         // G
         "label": "Gb",
         "accidental": "flat",
@@ -154,7 +140,7 @@ var RandomChordGenerator = function() {
             chordQualities = storedChordQualities;
         }
         else {
-            chordQualities = defaultChordQualities;
+            chordQualities = allChordQualities;
 
             // If using defaults, set the storage to the defaults.
             localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
@@ -178,7 +164,7 @@ var RandomChordGenerator = function() {
             chordRootNotes = storedChordRootNotes;
         }
         else {
-            chordRootNotes = defaultChordRootNotes;
+            chordRootNotes = allChordRootNotes;
 
             // If using defaults, set the storage to the defaults.
             localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
@@ -214,5 +200,52 @@ var RandomChordGenerator = function() {
         randomCircleData['homeChord']['value'] = "";
 
         return randomCircleData;
+    }
+
+    /* Public function to build settings form */
+    this.getSettingsForm = function() {
+        settingsFormContainer = $('<div></div>')
+            .addClass("");
+
+        // Build form elements for Root Notes
+        $.each(allChordRootNotes, function (key, value) {
+            console.log(this);
+
+            // Create input container.
+            inputContainer = $('<div></div>')
+                .addClass("settings-form-input-container");
+
+            label = this['label'];
+            accidental = this['accidental'];
+            fullName = this['fullName'];
+
+            // Build the checkbox
+            input = $('<input>', {
+                type :"checkbox",
+                id : "rootNoot-" + key,
+                name : "rootNoot-" + key,
+                value : label,
+                class : "setting-checkbox " + accidental,
+                "fullName" : fullName,
+                "checked" : "checked", // TODO: Determined checked-ness by comparing to localStorage.
+            });
+
+            // Append label to checkbox
+            label = $('<label>', {
+                'for' : input.attr('id')
+            }).html(input.attr('value'));
+
+            // Append input to container.
+            inputContainer.append(input);
+
+            // Append label to container.
+            inputContainer.append(label);
+
+            // Append input container to form container.
+            settingsFormContainer.append(inputContainer);
+
+        });
+        console.log(settingsFormContainer);
+        return settingsFormContainer;
     }
 }
