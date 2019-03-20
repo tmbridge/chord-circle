@@ -65,6 +65,12 @@ function populateInputsFromStorage() {
     }, {
         "label": "Fm",
         "value": 25,
+    }, {
+        "label": "G",
+        "value": 25,
+    }, {
+        "label": "Gm",
+        "value": 25,
     },];
 
     var storedCircleData = {};
@@ -100,9 +106,10 @@ function populateInputsFromStorage() {
     $("#home-chord-input").val(circleData['homeChord']['label']);
 }
 
-function drawCircle(circleData)
+function drawCircle()
 {
 
+    var circleData = JSON.parse(localStorage.getItem('circleData'));
     // Define size & radius of donut pie chart
     var width = 800,
         height = 800,
@@ -240,7 +247,9 @@ function redrawSlices(){
             };
         }
     });
-    drawCircle(circleData);
+    console.log(circleData);
+    localStorage.setItem('circleData', JSON.stringify(circleData));
+    drawCircle();
 }
 
 function bindInputListeners() {
@@ -258,7 +267,7 @@ function bindInputListeners() {
     });
 
     // Redraw when remove or add is clicked.
-    $(".btn").on('click', function () {
+    $(".repeater-add-btn, #repeater-remove-btn").on('click', function () {
         bindInputListeners();
         redrawSlices()
     });
@@ -331,6 +340,11 @@ $(document).ready(function () {
     formWidth = form.width();
     targetLeft = -(formWidth+5)+'px';
     flyout.css('left', targetLeft)
+    // Populate Inputs.
+    populateInputsFromStorage();
+
+    // Bind listeners.
+    bindInputListeners();
 
 
     $(".flyout-expander").on('click', function () {
@@ -413,12 +427,6 @@ $(document).ready(function () {
     // Add Settings Form.
     settingsForm = rcg.getSettingsForm();
     $("#chord-circle-settings-form").html(settingsForm);
-
-    // Populate Inputs.
-    populateInputsFromStorage();
-
-    // Bind listeners.
-    bindInputListeners();
 
     // Draw Circle.
     drawCircle(circleData);
