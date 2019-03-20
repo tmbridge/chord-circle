@@ -1,12 +1,12 @@
 /* Random Chord Generator */
 
-var RandomChordGenerator = function() {
+const RandomChordGenerator = function() {
 
     /*
      * Variables accessible
      * in the class
      */
-    var settingShortcuts = [{
+    const settingShortcuts = [{
 
         // rootNote Shortcuts.
         "type" : "rootNote",
@@ -40,7 +40,7 @@ var RandomChordGenerator = function() {
         "associated-class" : "7",
     }];
 
-    var allChordQualities = [{
+    const allChordQualities = [{
         "label": "",
         "quality": "major",
         "fullName": "Major",
@@ -62,7 +62,7 @@ var RandomChordGenerator = function() {
         "fullName": "Minor 7",
     }];
 
-    var allChordRootNotes = [{
+    const allChordRootNotes = [{
 
         // A
         "label": "Ab",
@@ -153,7 +153,7 @@ var RandomChordGenerator = function() {
      * inside other methods using
      * root.method()
      */
-    var root = this;
+    const root = this;
 
     /*
      * Constructor
@@ -162,7 +162,7 @@ var RandomChordGenerator = function() {
     };
 
     /* Private function to return all possible chord qualities. */
-    var getChordQualities = function() {
+    const getChordQualities = function() {
 
         var storedChordQualities = {};
         storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
@@ -186,7 +186,7 @@ var RandomChordGenerator = function() {
 
 
     /* Private function to return all possible chord root notes. */
-    var getChordRootNotes = function() {
+    const getChordRootNotes = function() {
 
         var storedChordRootNotes = {};
         storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
