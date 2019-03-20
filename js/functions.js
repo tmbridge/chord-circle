@@ -13,6 +13,17 @@ function getPropertyCount(obj) {
     return count;
 }
 
+function delay(callback, ms) {
+    var timer = 0;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, ms || 0);
+    };
+}
+
 function populateInputsFromStorage() {
 
     // Define defaults for when there is no store.
@@ -237,20 +248,19 @@ function bindInputListeners() {
     circleData = JSON.parse(localStorage.getItem('circleData'));
 
     $(".slice-input").on('keyup', function () {
-        $.each($(".slice-input"), function (key, value) {
-            redrawSlices();
-            localStorage.setItem('circleData', JSON.stringify(circleData));
-        });
-    });
-
-    // Redraw when remove or add is clicked.
-    $(".btn").on('click', function () {
-        redrawSlices()
+        redrawSlices();
+        localStorage.setItem('circleData', JSON.stringify(circleData));
     });
 
     $('#home-chord-input').on('keyup', function () {
         redrawSlices();
         localStorage.setItem('circleData', JSON.stringify(circleData));
+    });
+
+    // Redraw when remove or add is clicked.
+    $(".btn").on('click', function () {
+        bindInputListeners();
+        redrawSlices()
     });
 
     // Bind random chord generator.
@@ -322,15 +332,8 @@ $(document).ready(function () {
     targetLeft = -(formWidth+5)+'px';
     flyout.css('left', targetLeft)
 
-    // Populate Inputs.
-    populateInputsFromStorage();
-
-    // Bind listeners.
-    bindInputListeners();
 
     $(".flyout-expander").on('click', function () {
-        console.log(this);
-
         // Hide flyout when showing if not switching panes
         if (flyout.css('left') == "0px") {
             if($(this).hasClass('clicked')) {
@@ -410,4 +413,13 @@ $(document).ready(function () {
     // Add Settings Form.
     settingsForm = rcg.getSettingsForm();
     $("#chord-circle-settings-form").html(settingsForm);
+
+    // Populate Inputs.
+    populateInputsFromStorage();
+
+    // Bind listeners.
+    bindInputListeners();
+
+    // Draw Circle.
+    drawCircle(circleData);
 });
