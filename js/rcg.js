@@ -260,7 +260,7 @@ const RandomChordGenerator = function() {
                 .html(dataSet['header']);
             settingsFormContainer.append(header);
 
-            $.each(dataSet['data'], function (key, option) {
+            $.each(dataSet['data'], function (key, optionObj) {
                 // Create input container.
                 inputContainer = $('<div></div>');
 
@@ -296,14 +296,49 @@ const RandomChordGenerator = function() {
                     accidental,
                     quality
                 ];
+
                 input = $('<input>', {
                     type: "checkbox",
                     id: dataSet['type'] + "-setting-" + key,
                     name: dataSet['type'] + "-setting-" + key,
                     value: checkboxLabel,
+                    label: label,
                     class: inputClasses.join(' '),
                     "fullName": fullName,
                     "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
+                });
+
+                // Append click event to link container and input clicks.
+               /* inputContainer.on('click', (el) => {
+                    var chkbox = $(el.currentTarget).find('.setting-checkbox');
+                    if ($(chkbox).prop('checked') == true) {
+                        $(chkbox).prop('checked', false);
+                    }
+                    else {
+                        $(chkbox).prop('checked', true);
+                    }
+                });*/
+
+                // Append click even to update localStorage when a checkbox is checked
+                input.on('change', (el) => {
+                  /*  var chordRootNoteObj = {};
+                    var chkbox = el.currentTaget;
+                    chordRootNoteObj['label'] = chkbox.attr('label');
+                    chordRootNoteObj['accidental'] = accidental;//chkbox.attr('accidental');
+                    chordRootNoteObj['fullName'] = chkbox.attr('accidental');*/
+                    console.log(optionObj);
+                    var chkbox = el.currentTarget;
+                    console.log($(chkbox).prop('checked'));
+                    if($(chkbox).prop('checked')) {
+                        // Add to localStorage
+                        console.log("Adding:");
+                        console.log(optionObj);
+                    }
+                    else {
+                        // Remove from localStorage
+                        console.log("Removing:");
+                        console.log(optionObj);
+                    }
                 });
 
                 // Append label to checkbox
