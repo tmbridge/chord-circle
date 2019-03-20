@@ -236,7 +236,7 @@ function bindInputListeners() {
     // TODO: Set circleData from localStorage here.
     circleData = JSON.parse(localStorage.getItem('circleData'));
 
-    $(".slice-input").keyup(function () {
+    $(".slice-input").on('keyup', function () {
         $.each($(".slice-input"), function (key, value) {
             redrawSlices();
             localStorage.setItem('circleData', JSON.stringify(circleData));
@@ -244,15 +244,17 @@ function bindInputListeners() {
     });
 
     // Redraw when remove or add is clicked.
-    $(".btn").click(redrawSlices());
+    $(".btn").on('click', function () {
+        redrawSlices()
+    });
 
-    $('#home-chord-input').keyup(function () {
+    $('#home-chord-input').on('keyup', function () {
         redrawSlices();
         localStorage.setItem('circleData', JSON.stringify(circleData));
     });
 
     // Bind random chord generator.
-    $(".random-chord-button").click(function () {
+    $(".random-chord-button").on('click', function () {
         randomChord = rcg.getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-chord-button" ).index( this );
@@ -263,7 +265,7 @@ function bindInputListeners() {
     });
 
     // Bind random home chord generator.
-    $(".random-home-chord-button").click(function () {
+    $(".random-home-chord-button").on('click', function () {
         randomChord = rcg.getRandomChord();
         circleData = JSON.parse(localStorage.getItem('circleData'));
         index = $( ".random-home-chord-button" ).index( this );
@@ -326,7 +328,7 @@ $(document).ready(function () {
     // Bind listeners.
     bindInputListeners();
 
-    $(".flyout-expander").click(function () {
+    $(".flyout-expander").on('click', function () {
         console.log(this);
 
         // Hide flyout when showing if not switching panes
@@ -365,7 +367,7 @@ $(document).ready(function () {
     });
 
     // Bind random circle generator.
-    $("#random-circle-btn").click(function () {
+    $("#random-circle-btn").on("click", function () {
         circleData = rcg.getRandomCircle($(".items").length);
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
