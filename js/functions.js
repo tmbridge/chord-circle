@@ -224,7 +224,7 @@ function drawCircle()
     }
 }
 
-function redrawSlices(){
+function populateStorageFromInputs(){
     circleData = {};
     circleData['chordData'] = [];
     circleData['homeChord'] = {};
@@ -237,7 +237,7 @@ function redrawSlices(){
     circleData['homeChord']['label'] = value;
     circleData['homeChord']['value'] = "";
 
-    // Redraw slices
+    // Populate localeStorage from inputs.
     $.each($(".slice-input"), function (key, value) {
         value = $(this).val();
         if (!(typeof value == "undefined") && !(value == "")) {
@@ -247,7 +247,7 @@ function redrawSlices(){
             };
         }
     });
-    console.log(circleData);
+
     localStorage.setItem('circleData', JSON.stringify(circleData));
     drawCircle();
 }
@@ -257,19 +257,17 @@ function bindInputListeners() {
     circleData = JSON.parse(localStorage.getItem('circleData'));
 
     $(".slice-input").on('keyup', function () {
-        redrawSlices();
-        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateStorageFromInputs();
     });
 
     $('#home-chord-input').on('keyup', function () {
-        redrawSlices();
-        localStorage.setItem('circleData', JSON.stringify(circleData));
+        populateStorageFromInputs();
     });
 
     // Redraw when remove or add is clicked.
     $(".repeater-add-btn, #repeater-remove-btn").on('click', function () {
         bindInputListeners();
-        redrawSlices()
+        populateStorageFromInputs()
     });
 
     // Bind random chord generator.
@@ -280,7 +278,7 @@ function bindInputListeners() {
         circleData['chordData'][index] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
-        redrawSlices();
+        populateStorageFromInputs();
     });
 
     // Bind random home chord generator.
@@ -291,7 +289,7 @@ function bindInputListeners() {
         circleData['homeChord'] = randomChord;
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
-        redrawSlices();
+        populateStorageFromInputs();
     });
 
     // Bind home-swapper click event.
@@ -309,7 +307,7 @@ function bindInputListeners() {
         // Redraw.
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
-        redrawSlices();
+        populateStorageFromInputs();
     }));
 }
 
@@ -321,7 +319,7 @@ function bindSlices() {
     bindInputListeners();
 
     // Always redraw
-    redrawSlices();
+    populateStorageFromInputs();
 }
 
 $(document).ready(function () {
@@ -388,7 +386,7 @@ $(document).ready(function () {
         circleData = rcg.getRandomCircle($(".items").length);
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
-        redrawSlices();
+        populateStorageFromInputs();
     });
 
     // Show flyout if setting is set to show on load.
