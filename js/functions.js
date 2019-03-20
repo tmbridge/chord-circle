@@ -18,7 +18,7 @@ function delay(callback, ms) {
     return function () {
         var context = this, args = arguments;
         clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = setTimeout( () => {
             callback.apply(context, args);
         }, ms || 0);
     };
@@ -27,7 +27,7 @@ function delay(callback, ms) {
 function populateInputsFromStorage() {
 
     // Define defaults for when there is no store.
-    var defaultCircleData = {};
+    const defaultCircleData = {};
     defaultCircleData['homeChord'] = {"label" : "C", "value" : 25};
     defaultCircleData['chordData'] = [{
         "label": "A",
@@ -73,8 +73,7 @@ function populateInputsFromStorage() {
         "value": 25,
     },];
 
-    var storedCircleData = {};
-    storedCircleData = JSON.parse(localStorage.getItem('circleData'));
+    const storedCircleData = JSON.parse(localStorage.getItem('circleData'));
 
     // Load store if exists, otherwise load defaults.
     if(getPropertyCount(storedCircleData) > 0) {
@@ -293,7 +292,6 @@ function bindInputListeners() {
     });
 
     // Bind home-swapper click event.
-    //$(".arc").click(function () {
     $("#donut-chart").on('click', '.arc', (function (slice) {
         // Get index of clicked slice.
         sliceText = $(this).find("text");
@@ -345,11 +343,11 @@ $(document).ready(function () {
     bindInputListeners();
 
 
-    $(".flyout-expander").on('click', function () {
+    $(".flyout-expander").on('click', () => {
         // Hide flyout when showing if not switching panes
         if (flyout.css('left') == "0px") {
             if($(this).hasClass('clicked')) {
-                flyout.animate({left: targetLeft}, 200, "swing", function () {
+                flyout.animate({left: targetLeft}, 200, "swing", () => {
                     // If closing, remove all clicked classes.
                     $(".flyout-expander").removeClass('clicked');
                 });
@@ -359,13 +357,14 @@ $(document).ready(function () {
         }
         //Show flyout when hidden
         else {
-            flyout.animate({left: '0px'}, 200, "swing", function () {
+            flyout.animate({left: '0px'}, 200, "swing", () => {
             });
             // Toggle arrow image
             $('.arrow').toggle(200, 'swing');
         }
 
-        clickedId = $(this).attr('id');
+        // Track which icon was used to expand flyout.
+        var clickedId = $(this).attr('id');
 
         // Add clicked class to element to track which one was used to open the flyout.
         $(".flyout-expander").removeClass('clicked');
@@ -382,7 +381,7 @@ $(document).ready(function () {
     });
 
     // Bind random circle generator.
-    $("#random-circle-btn").on("click", function () {
+    $("#random-circle-btn").on("click", () => {
         circleData = rcg.getRandomCircle($(".items").length);
         localStorage.setItem('circleData', JSON.stringify(circleData));
         populateInputsFromStorage();
@@ -423,7 +422,7 @@ $(document).ready(function () {
     }
 
     // Add Settings Form.
-    settingsForm = rcg.getSettingsForm();
+    const settingsForm = rcg.getSettingsForm();
     $("#chord-circle-settings-form").html(settingsForm);
 
     // Draw Circle.
