@@ -296,6 +296,7 @@ const RandomChordGenerator = function() {
                     accidental,
                     quality
                 ];
+
                 input = $('<input>', {
                     type: "checkbox",
                     id: dataSet['type'] + "-setting-" + key,
@@ -304,6 +305,17 @@ const RandomChordGenerator = function() {
                     class: inputClasses.join(' '),
                     "fullName": fullName,
                     "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
+                });
+
+                // Append click event to link container and input clicks.
+                inputContainer.on('click', (el) => {
+                    var chkbox = $(el.currentTarget).find('.setting-checkbox');
+                    if ($(chkbox).prop('checked') == true) {
+                        $(chkbox).prop('checked', false);
+                    }
+                    else {
+                        $(chkbox).prop('checked', true);
+                    }
                 });
 
                 // Append label to checkbox
