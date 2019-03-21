@@ -152,7 +152,10 @@ const RandomChordGenerator = function() {
         "fullName": "G Sharp",
     }];
 
+    /* Class attribute for current Root Notes */
     var currentChordRootNotes = [];
+
+    /* Class attribute for current Qualities */
     var currentChordQualities = [];
 
     /*
@@ -166,6 +169,14 @@ const RandomChordGenerator = function() {
      * Constructor
      */
     this.construct = function(){
+/*        var storedRcg = {};
+        storedRcg = JSON.parse(localStorage.getItem('rcg'));
+        if (storedRcg != {}) {
+            storedRcg.construct();
+            setChordRootNotes(storedRcg.getChordRootNotes());
+            setChordQualities(storedRcg.getChordQualities());
+            //localStorage.setItem('rcg', JSON.stringify(this));
+        }*/
         currentChordRootNotes =  getChordRootNotes();
         currentChordQualities =  getChordQualities();
     };
@@ -187,7 +198,7 @@ const RandomChordGenerator = function() {
         }
 
         // Sync localStorage.
-        localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
+        //localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
         currentChordQualities = chordQualities;
 
         // TODO: filter chordQualities by 'allowed qualities' from settings form.
@@ -212,7 +223,7 @@ const RandomChordGenerator = function() {
 
         // Sync localStorage.
         // If using defaults, set the storage to the defaults.
-        localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
+      //  localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
         currentChordRootNotes = chordRootNotes;
 
         // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
