@@ -264,7 +264,7 @@ function bindInputListeners() {
     });
 
     // Redraw when remove or add is clicked.
-    $(".repeater-add-btn, #repeater-remove-btn").on('click', function () {
+    $(".repeater-add-btn, #repeater-remove-btn").on('click', () => {
         bindInputListeners();
         populateStorageFromInputs()
     });
@@ -343,10 +343,11 @@ $(document).ready(function () {
     bindInputListeners();
 
 
-    $(".flyout-expander").on('click', () => {
+    $(".flyout-expander").on('click', (el) => {
+        target = el.currentTarget;
         // Hide flyout when showing if not switching panes
         if (flyout.css('left') == "0px") {
-            if($(this).hasClass('clicked')) {
+            if($(target).hasClass('clicked')) {
                 flyout.animate({left: targetLeft}, 200, "swing", () => {
                     // If closing, remove all clicked classes.
                     $(".flyout-expander").removeClass('clicked');
@@ -364,11 +365,11 @@ $(document).ready(function () {
         }
 
         // Track which icon was used to expand flyout.
-        var clickedId = $(this).attr('id');
+        var clickedId = $(target).attr('id');
 
         // Add clicked class to element to track which one was used to open the flyout.
         $(".flyout-expander").removeClass('clicked');
-        $(this).addClass('clicked');
+        $(target).addClass('clicked');
 
         if(clickedId == "chords-expand-link") {
             $("#chord-circle-chords-form").show();
@@ -389,7 +390,7 @@ $(document).ready(function () {
     });
 
     // Show flyout if setting is set to show on load.
-    showChordsFlyoutOnLoad = 1;
+    showChordsFlyoutOnLoad = 3;
     if(showChordsFlyoutOnLoad == 1) {
         $("#chords-expand-link").addClass('clicked');
         flyout.css('left', "0px");

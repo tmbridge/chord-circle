@@ -1,5 +1,9 @@
 /* Random Chord Generator */
 
+//TODO: Graceful fail when no elements are selected for a setting group.
+//TODO: RCG memory that will be maintained through browser refresh.
+//TODO: Link checkbox and checkbox container to un/check box on click of container.
+
 const RandomChordGenerator = function() {
 
     /*
@@ -148,6 +152,12 @@ const RandomChordGenerator = function() {
         "fullName": "G Sharp",
     }];
 
+    /* Class attribute for current Root Notes */
+    var currentChordRootNotes = [];
+
+    /* Class attribute for current Qualities */
+    var currentChordQualities = [];
+
     /*
      * Can access this.method
      * inside other methods using
@@ -158,62 +168,48 @@ const RandomChordGenerator = function() {
     /*
      * Constructor
      */
-    this.construct = function(){
+    this.construct = function(chordRootNotes, chordQualities){
+        setChordRootNotes(allChordRootNotes);
+        setChordQualities(allChordQualities);
+        if (chordRootNotes) {
+            setChordRootNotes(chordRootNotes);
+        }
+        if (chordQualities) {
+            setChordQualities(chordQualities);
+        }
+        localStorage.setItem('chordRootNotes', JSON.stringify(getChordRootNotes()));
+        localStorage.setItem('chordQualities', JSON.stringify(getChordQualities()));
     };
 
     /* Private function to return all possible chord qualities. */
     const getChordQualities = function() {
-
-        var storedChordQualities = {};
-        storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
-
-        // Load store if exists, otherwise load defaults.
-        chordQualities = {};
-        if (getPropertyCount(storedChordQualities) > 0) {
-            chordQualities = storedChordQualities;
-        }
-        else {
-            chordQualities = allChordQualities;
-
-            // If using defaults, set the storage to the defaults.
-            localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
-        }
-
-        // TODO: filter chordQualities by 'allowed qualities' from settings form.
-
-        return chordQualities;
+        return currentChordQualities;
     }
-
 
     /* Private function to return all possible chord root notes. */
     const getChordRootNotes = function() {
+        return currentChordRootNotes;
+    }
 
-        var storedChordRootNotes = {};
-        storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
+    /* Private function to set Chord Qualities */
+    const setChordQualities = function (newChordQualities) {
+        currentChordQualities = newChordQualities;
+        localStorage.setItem('chordQualities', JSON.stringify(currentChordQualities));
+    }
 
-        // Load store if exists, otherwise load defaults.
-        chordRootNotes = {};
-        if (getPropertyCount(storedChordRootNotes) > 0) {
-            chordRootNotes = storedChordRootNotes;
-        }
-        else {
-            chordRootNotes = allChordRootNotes;
-
-            // If using defaults, set the storage to the defaults.
-            localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
-        }
-        // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
-        return chordRootNotes;
+    /* Private function to set Chord Root Notes */
+    const setChordRootNotes = function (newChordRootNotes) {
+        currentChordRootNotes = newChordRootNotes;
+        localStorage.setItem('chordRootNotes', JSON.stringify(currentChordRootNotes));
     }
 
     /* Public function to get a random chord */
     this.getRandomChord = function() {
-        rootNotes = getChordRootNotes();
-        qualities = getChordQualities();
-
-        randomRootNote = rootNotes[Math.floor(Math.random() * rootNotes.length)]['label'];
-        randomQuality = qualities[Math.floor(Math.random() * qualities.length)]['label'];
-        randomChord = {
+        let rootNotes = getChordRootNotes();
+        let qualities = getChordQualities();
+        let randomRootNote = rootNotes[Math.floor(Math.random() * rootNotes.length)]['label'];
+        let randomQuality = qualities[Math.floor(Math.random() * qualities.length)]['label'];
+        let randomChord = {
             'label': randomRootNote + randomQuality,
             'value': '',
         };
@@ -223,7 +219,7 @@ const RandomChordGenerator = function() {
 
     /* Public function to get a random circle. */
     this.getRandomCircle = function(numSlices) {
-        randomCircleData = {};
+        let randomCircleData = {};
         randomCircleData['chordData'] = [];
         randomCircleData['homeChord'] = {};
         for (i = 0; i < numSlices; i++) {
@@ -237,11 +233,11 @@ const RandomChordGenerator = function() {
 
     /* Public function to build settings form */
     this.getSettingsForm = function() {
-        settingsFormContainer = $('<div></div>')
+        let settingsFormContainer = $('<div></div>')
             .addClass("");
 
         //Build source data object.
-        var sourceData = {};
+        let sourceData = {};
         sourceData['rootNotes'] = {};
         sourceData['rootNotes']['type'] = 'root-note';
         sourceData['rootNotes']['header'] = 'Chord Root Notes';
@@ -255,33 +251,34 @@ const RandomChordGenerator = function() {
         // Build form elements
         $.each(sourceData, function (dataSetKey, dataSet) {
             // Build and append header.
-            header = $('<h2></h2>')
+            let header = $('<h2></h2>')
                 .addClass("settings-form-header")
                 .html(dataSet['header']);
             settingsFormContainer.append(header);
 
-            $.each(dataSet['data'], function (key, option) {
+            $.each(dataSet['data'], function (key, optionObj) {
                 // Create input container.
-                inputContainer = $('<div></div>');
+                let inputContainer = $('<div></div>');
+                let label = this['label'];
+                let fullName = this['fullName'];
+                let accidental = "";
+                let quality = "";
 
-                label = this['label'];
-                fullName = this['fullName'];
-
-                // Add specific attributes.
-                accidental = "";
-                quality = "";
+                // Set Root Note specific settings.
                 if (dataSetKey == 'rootNotes') {
                     accidental = this['accidental'];
                     checkboxLabel = label;
+                    selectedElements = currentChordRootNotes;
                 }
-                // Chord Quality specific attributes.
+                // Set Chord Quality specific settings.
                 else if (dataSetKey == 'chordQualities') {
                     quality = this['quality'];
                     checkboxLabel = fullName;
+                    selectedElements = currentChordQualities;
                 }
 
                 // Append classes to container.
-                containerClasses = [
+                let containerClasses = [
                     'settings-form-input-container',
                     dataSet['type'] + "-setting-container",
                     accidental,
@@ -290,20 +287,66 @@ const RandomChordGenerator = function() {
                 inputContainer.addClass(containerClasses.join(' '));
 
                 // Build the checkbox
-                inputClasses = [
+                let inputClasses = [
                     'setting-checkbox',
                     dataSet['type'] + "-setting",
                     accidental,
                     quality
                 ];
-                input = $('<input>', {
+
+                let checked = checkValue(optionObj, selectedElements);
+                let input = $('<input>', {
                     type: "checkbox",
                     id: dataSet['type'] + "-setting-" + key,
                     name: dataSet['type'] + "-setting-" + key,
                     value: checkboxLabel,
+                    label: label,
                     class: inputClasses.join(' '),
                     "fullName": fullName,
-                    "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
+                    //"checked": "", // TODO: Determined checked-ness by comparing to localStorage.
+                });
+
+                // Add the checked attribute if the item exists in the source array.
+                if(checked > -1) {
+                    $(input).attr("checked", "checked");
+                }
+
+                // Append click even to update localStorage when a checkbox is checked.
+                input.on('change', (el) => {
+
+                    // Get the current elements to change based on click.
+                    let chkbox = el.currentTarget;
+                    let currentElements = [];
+                    let newElements = [];
+                    let settingFunctionName = "";
+                    if ($(chkbox).hasClass('chord-quality-setting')) {
+                        currentElements = getChordQualities();
+                        settingFunctionName = 'setChordQualities';
+                    }
+                    else if ($(chkbox).hasClass('root-note-setting')) {
+                        currentElements = getChordRootNotes();
+                        settingFunctionName = 'setChordRootNotes';
+                    }
+
+
+                    // Add or Remove the clicked obj to the class var.
+                    newElements = currentElements;
+                    if($(chkbox).prop('checked')) {
+                        newElements.push(optionObj);
+                    }
+                    else {
+                        newElements = removeFilter(currentElements, optionObj);
+                    }
+
+                    // TODO: Use something akin to call_user_func() in PHP to call the the settingFunctionName
+                    // without the following conditional. something like:
+                    // $(window)['settingFunctionName'](newElements), I think.
+                    if ($(chkbox).hasClass('chord-quality-setting')) {
+                        setChordQualities(newElements);
+                    }
+                    else if ($(chkbox).hasClass('root-note-setting')) {
+                        setChordRootNotes(newElements);
+                    }
                 });
 
                 // Append label to checkbox
@@ -324,4 +367,29 @@ const RandomChordGenerator = function() {
         });
         return settingsFormContainer;
     }
+
+    function removeFilter(array, element) {
+        return array.filter(el => el['label'] !== element['label']);
+    }
+
+    function checkValue(value,arr){
+        var status = -1;
+
+        for(var i=0; i<arr.length; i++){
+            var name = arr[i];
+            if(name['label'] == value['label']){
+                status = i;
+                break;
+            }
+        }
+
+        return status;
+    }
+
+    // Get saved chordRootNotes and chord Qualities
+    // and call constructor.
+    // TODO: Use 'correct' constructor syntax.
+    var storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
+    var storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
+    this.construct(storedChordRootNotes, storedChordQualities);
 }
