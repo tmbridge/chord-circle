@@ -59,6 +59,11 @@ text.inner-circle {
   float: left;
 }
 
+#settings-link-icon-image {
+  width: 60%;
+  padding-left: 5px;
+}
+
 .chord-arrow,
 .settings-arrow {
   width: 20%;
@@ -81,4 +86,8 @@ text.inner-circle {
 
 .arc {
   z-index: 1000;
+}
+
+.btn {
+  color: #FFFFFF;
 }

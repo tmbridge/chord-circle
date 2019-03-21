@@ -33,6 +33,12 @@ h3,p{
     color:#006400
 }
 
+.form-header {
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
 .settings-form-header {
     width: 100%;
     position: relative;
@@ -57,23 +63,24 @@ h3,p{
     font-size: 13px;
 }
 
-input#submit{
-    width:100%;
-    margin:10px 15px 10px 0;
-    padding:5px;
-    background-color:#3fb8e8;
-    box-shadow:0 3px 0 0 #3293ba;
-    border-radius:3px;
-    color:#fff;
-    height:41px;
-    font-size:16px
-}
-textarea{
+
+textarea,
+input.slice-input,
+input#home-chord-input {
     margin:10px 0;
     padding:5px;
     box-shadow:1px 1px 1px 1px gray;
-    border-radius:3px
+    border-radius:3px;
+    text-align: center;
+    width: 50%;
+    font-size:1.4rem;
 }
+
+.home-chord-input-container {
+    position: relative;
+    left: -17px;
+}
+
 div#container{
     margin:50px auto;
     width:960px
@@ -82,4 +89,39 @@ h2{
     font-family:'Raleway',sans-serif;
     color:#006400;
     text-shadow:1px 1px 1px gray
+}
+
+.button-image {
+    display: inline-block;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+    text-align: center;
+    padding: 2px;
+    height: 22px;
+    margin: 5px;
+}
+
+.add-btn-image {
+    width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
+}
+
+#add-btn-label {
+    display: inherit;
+    position: relative;
+    top: -4px;
+}
+
+.remove-btn-image {
+    width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
+}
+
+.random-btn-image {
+    width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
 }

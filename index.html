@@ -26,9 +26,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chord Circle</title>
 
-    <!-- Optional Bootstrap theme -->
-    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
-
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <script src="./js/jquery-ui.min.js"></script>
@@ -45,11 +42,15 @@
     <!--<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
     <script src="./bootstrap/js/bootstrap.min.js"></script>-->
 
+    <!-- Optional Bootstrap theme -->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
+
     <!-- Project CSS/JS -->
     <link href="./css/jqueryform.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/rcg.js"></script>
     <script src="./js/functions.js"></script>
+
 </head>
 
 <body>
@@ -68,6 +69,11 @@
 
           <div id="left-fly-out-container" class="row">
               <div id="chord-circle-chords-form">
+                  <div class="form-header">
+                      <h2>
+                        Circle Chords
+                      </h2>
+                  </div>
                   <!-- Random Circle Button -->
                   <div class="repeater-heading">
                       <button class="btn btn-primary random-circle-btn" id="random-circle-btn">
@@ -77,10 +83,10 @@
                   <hr>
                   <!-- Home Chord Input -->
                   <div class="form-group">
-                      <label for="home-chord-input" class="col-lg-2 control-label">Home Chord</label>
-                      <div class="col-lg-10">
-                          <button class="btn btn-primary random-home-chord-button" id="random-home-chord-btn[]">
-                              Randomize
+                      <label for="home-chord-input" class="col-lg-2 control-label"><h3>Home Chord</h3></label>
+                      <div class="col-lg-10 home-chord-input-container">
+                          <button class="btn btn-primary button-image random-home-chord-button" id="random-home-chord-btn[]">
+                              <img class='random-btn-image' src="./images/btn-randomize.svg" />
                           </button>
                           <input type="text" class="form-control" id="home-chord-input" placeholder="Home" data-name="home-chord-input">
                       </div>
@@ -89,8 +95,11 @@
                   <div id="repeater">
                       <!-- Repeater Heading -->
                       <div class="repeater-heading">
-                          <button class="btn btn-primary repeater-add-btn" id="repeater-add-btn">
-                              Add Chord
+                          <button class="btn btn-primary button-image repeater-add-btn" id="repeater-add-btn">
+                              <img class='add-btn-image' src="./images/btn-add.svg" />
+                              <div class="btn-label" id="add-btn-label">
+                                  Add Chord
+                              </div>
                           </button>
                       </div>
                       <hr>
@@ -100,18 +109,20 @@
                               <div class="form-group">
                                   <label for="" class="col-lg-2 control-label"></label>
                                   <div class="col-lg-10">
-                                      <button class="btn btn-primary random-chord-button" id="random-chord-btn[]">
-                                          Randomize
+                                      <!-- Repeater Randomize Button -->
+                                      <button class="btn btn-primary button-image random-chord-button" id="random-chord-btn[]">
+                                          <img class='random-btn-image' src="./images/btn-randomize.svg" />
                                       </button>
                                       <input type="text" class="slice-input" id="slice-inputs[]" placeholder="Am" data-name="">
+                                      <button id="remove-btn" class="btn btn-danger button-image repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
+                                          <img class='remove-btn-image' src="./images/btn-remove.svg" />
+                                      </button>
                                   </div>
                               </div>
                           </div>
                           <!-- Repeater Remove Btn -->
                           <div class="pull-right">
-                              <button id="remove-btn" class="btn btn-danger repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
-                                  Remove
-                              </button>
+
                           </div>
                           <hr>
                           <div class="clearfix"></div>
@@ -121,7 +132,6 @@
               <!-- End Chord Form Container -->
               <!-- Start Settings Form Container -->
               <div id="chord-circle-settings-form">
-                  test
               </div>
               <!-- End Settings Form Container -->
               <!-- Start Menu Container -->
@@ -150,7 +160,7 @@
             showFirstItemToDefault: false,
         });
     </script>
-    <div id="home-chord-swap-dialog">
+    <div id="home-chord-swap-dialog" style="display: none;">
         Click a chord slice to swap with the home chord.
     </div>
 </body>
