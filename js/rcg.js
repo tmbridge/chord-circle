@@ -168,17 +168,21 @@ const RandomChordGenerator = function() {
     /*
      * Constructor
      */
-    this.construct = function(){
-/*        var storedRcg = {};
-        storedRcg = JSON.parse(localStorage.getItem('rcg'));
-        if (storedRcg != {}) {
-            storedRcg.construct();
-            setChordRootNotes(storedRcg.getChordRootNotes());
-            setChordQualities(storedRcg.getChordQualities());
-            //localStorage.setItem('rcg', JSON.stringify(this));
-        }*/
+    this.construct = function(chordRootNotes, chordQualities){
+        console.log("construct arg rootnotes");
+        console.log(chordRootNotes);
+        console.log("construct arg quals");
+        console.log(chordQualities);
+        if (chordRootNotes) {
+            currentChordRootNotes =  getChordRootNotes();
+        }
+        if (chordQualities) {
+            currentChordQualities =  getChordQualities();
+        }
         currentChordRootNotes =  getChordRootNotes();
-        currentChordQualities =  getChordQualities();
+        currentChordQualities = getChordQualities();
+        localStorage.setItem('chordRootNotes', JSON.stringify(currentChordRootNotes));
+        localStorage.setItem('chordQualities', JSON.stringify(currentChordQualities));
     };
 
     /* Private function to return all possible chord qualities. */
@@ -233,11 +237,13 @@ const RandomChordGenerator = function() {
     /* Private function to set Chord Qualities */
     const setChordQualities = function (newChordQualities) {
         currentChordQualities = newChordQualities;
+        localStorage.setItem('chordQualities', JSON.stringify(currentChordQualities));
     }
 
     /* Private function to set Chord Root Notes */
     const setChordRootNotes = function (newChordRootNotes) {
         currentChordRootNotes = newChordRootNotes;
+        localStorage.setItem('chordRootNotes', JSON.stringify(currentChordRootNotes));
     }
 
     /* Public function to get a random chord */
@@ -306,17 +312,19 @@ const RandomChordGenerator = function() {
                 label = this['label'];
                 fullName = this['fullName'];
 
-                // Add specific attributes.
+                // Set Root Note specific settings.
                 accidental = "";
                 quality = "";
                 if (dataSetKey == 'rootNotes') {
                     accidental = this['accidental'];
                     checkboxLabel = label;
+                    currentElements = currentChordRootNotes;
                 }
-                // Chord Quality specific attributes.
+                // Set Chord Quality specific settings.
                 else if (dataSetKey == 'chordQualities') {
                     quality = this['quality'];
                     checkboxLabel = fullName;
+                    currentElements = currentChordQualities;
                 }
 
                 // Append classes to container.
@@ -335,6 +343,7 @@ const RandomChordGenerator = function() {
                     accidental,
                     quality
                 ];
+
 
                 input = $('<input>', {
                     type: "checkbox",
@@ -431,5 +440,34 @@ const RandomChordGenerator = function() {
         });
         return settingsFormContainer;
     }
-    this.construct();
+
+    /* Helper Functions */
+    function removeA(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
+    function pluckByLabel(inArr, name, exists)
+    {
+        for (i = 0; i < inArr.length; i++ )
+        {
+            if (inArr[i].name == name)
+            {
+                return (exists === true) ? true : inArr[i];
+            }
+        }
+    }
+
+    // Get saved chordRootNotes and chord Qualities
+    // and call constructor.
+    // TODO: Use 'correct' constructor syntax.
+    var storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
+    var storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
+    this.construct(storedChordRootNotes, storedChordQualities);
 }

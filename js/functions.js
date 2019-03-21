@@ -1,9 +1,12 @@
-storedRcg = JSON.parse(localStorage.getItem('rcg'));
+var rcg = new RandomChordGenerator();
+/*rcg.construct("arg1", "arg2");
+var storedRcg = JSON.parse(localStorage.getItem('rcg'));
 console.log("storedRCG");
 console.log(storedRcg);
+
 var rcg = {};
 if (storedRcg == null) {
-    rcg = new RandomChordGenerator();
+    rcg = new RandomChordGenerator('test','test2');
     localStorage.setItem('rcg', JSON.stringify(rcg));
     console.log("newRCG");
     console.log(rcg);
@@ -12,7 +15,7 @@ else {
     rcg = storedRcg;
     console.log("newStoredRCG");
     console.log(rcg);
-}
+}*/
 
 function getPropertyCount(obj) {
     var count = 0,
@@ -36,17 +39,6 @@ function delay(callback, ms) {
             callback.apply(context, args);
         }, ms || 0);
     };
-}
-
-function removeA(arr) {
-    var what, a = arguments, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        what = a[--L];
-        while ((ax= arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
-        }
-    }
-    return arr;
 }
 
 function populateInputsFromStorage() {
