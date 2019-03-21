@@ -173,21 +173,23 @@ const RandomChordGenerator = function() {
         console.log(chordRootNotes);
         console.log("construct arg quals");
         console.log(chordQualities);
+        setChordRootNotes(allChordRootNotes);
+        setChordQualities(allChordQualities);
         if (chordRootNotes) {
-            currentChordRootNotes =  getChordRootNotes();
+            setChordRootNotes(chordRootNotes);
         }
         if (chordQualities) {
-            currentChordQualities =  getChordQualities();
+            setChordQualities(chordQualities);
         }
-        currentChordRootNotes =  getChordRootNotes();
-        currentChordQualities = getChordQualities();
-        localStorage.setItem('chordRootNotes', JSON.stringify(currentChordRootNotes));
-        localStorage.setItem('chordQualities', JSON.stringify(currentChordQualities));
+        /*currentChordRootNotes =  getChordRootNotes();
+        currentChordQualities = getChordQualities();*/
+        localStorage.setItem('chordRootNotes', JSON.stringify(getChordRootNotes()));
+        localStorage.setItem('chordQualities', JSON.stringify(getChordQualities()));
     };
 
     /* Private function to return all possible chord qualities. */
     const getChordQualities = function() {
-
+/*
         var storedChordQualities = {};
         //storedChordQualities = JSON.parse(localStorage.getItem('chordQualities'));
         storedChordQualities = currentChordQualities;
@@ -198,12 +200,13 @@ const RandomChordGenerator = function() {
             chordQualities = storedChordQualities;
         }
         else {
+            console.log("loading all chord qualities");
             chordQualities = allChordQualities;
         }
 
         // Sync localStorage.
         //localStorage.setItem('chordQualities', JSON.stringify(chordQualities));
-        currentChordQualities = chordQualities;
+        currentChordQualities = chordQualities;*/
 
         // TODO: filter chordQualities by 'allowed qualities' from settings form.
 
@@ -213,7 +216,7 @@ const RandomChordGenerator = function() {
     /* Private function to return all possible chord root notes. */
     const getChordRootNotes = function() {
 
-        var storedChordRootNotes = {};
+/*        var storedChordRootNotes = {};
         //storedChordRootNotes = JSON.parse(localStorage.getItem('chordRootNotes'));
         storedChordRootNotes = currentChordRootNotes;
         // Load store if exists, otherwise load defaults.
@@ -228,7 +231,7 @@ const RandomChordGenerator = function() {
         // Sync localStorage.
         // If using defaults, set the storage to the defaults.
       //  localStorage.setItem('chordRootNotes', JSON.stringify(chordRootNotes));
-        currentChordRootNotes = chordRootNotes;
+        currentChordRootNotes = chordRootNotes;*/
 
         // TODO: filter chordRootNotes by 'allowed qualities' from settings form.
         return currentChordRootNotes;
@@ -318,13 +321,13 @@ const RandomChordGenerator = function() {
                 if (dataSetKey == 'rootNotes') {
                     accidental = this['accidental'];
                     checkboxLabel = label;
-                    currentElements = currentChordRootNotes;
+                    selectedElements = currentChordRootNotes;
                 }
                 // Set Chord Quality specific settings.
                 else if (dataSetKey == 'chordQualities') {
                     quality = this['quality'];
                     checkboxLabel = fullName;
-                    currentElements = currentChordQualities;
+                    selectedElements = currentChordQualities;
                 }
 
                 // Append classes to container.
@@ -344,6 +347,8 @@ const RandomChordGenerator = function() {
                     quality
                 ];
 
+                console.log((checkValue(optionObj, selectedElements)));
+                var checked = ((checkValue(optionObj, selectedElements)) ? "checked" : "" );
 
                 input = $('<input>', {
                     type: "checkbox",
@@ -353,7 +358,7 @@ const RandomChordGenerator = function() {
                     label: label,
                     class: inputClasses.join(' '),
                     "fullName": fullName,
-                    "checked": "checked", // TODO: Determined checked-ness by comparing to localStorage.
+                    //"checked": "", // TODO: Determined checked-ness by comparing to localStorage.
                 });
 
                 // Append click event to link container and input clicks.
@@ -395,10 +400,10 @@ const RandomChordGenerator = function() {
                         settingFunctionName = 'setChordRootNotes';
                     }
 
-
+                    newElements = currentElements;
                     if($(chkbox).prop('checked')) {
                         // Add the clicked obj
-                        newElements = currentElements.push(optionObj);
+                        newElements.push(optionObj);
                         //setChordQualities(newElements);
 
                     }
@@ -411,6 +416,8 @@ const RandomChordGenerator = function() {
                     // without the following conditional. something like:
                     // $(window)['settingFunctionName'](newElements), I think.
                     if ($(chkbox).hasClass('chord-quality-setting')) {
+                        console.log("newElements");
+                        console.log(newElements);
                         setChordQualities(newElements);
                     }
                     else if ($(chkbox).hasClass('root-note-setting')) {
@@ -462,6 +469,21 @@ const RandomChordGenerator = function() {
                 return (exists === true) ? true : inArr[i];
             }
         }
+    }
+
+    function checkValue(value,arr){
+        console.log(arr);
+        var status = -1;
+
+        for(var i=0; i<arr.length; i++){
+            var name = arr[i];
+            if(name == value){
+                status = i;
+                break;
+            }
+        }
+
+        return status;
     }
 
     // Get saved chordRootNotes and chord Qualities

@@ -1,21 +1,4 @@
 var rcg = new RandomChordGenerator();
-/*rcg.construct("arg1", "arg2");
-var storedRcg = JSON.parse(localStorage.getItem('rcg'));
-console.log("storedRCG");
-console.log(storedRcg);
-
-var rcg = {};
-if (storedRcg == null) {
-    rcg = new RandomChordGenerator('test','test2');
-    localStorage.setItem('rcg', JSON.stringify(rcg));
-    console.log("newRCG");
-    console.log(rcg);
-}
-else {
-    rcg = storedRcg;
-    console.log("newStoredRCG");
-    console.log(rcg);
-}*/
 
 function getPropertyCount(obj) {
     var count = 0,
