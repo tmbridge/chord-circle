@@ -347,7 +347,7 @@ $(document).ready(function () {
         target = el.currentTarget;
         // Hide flyout when showing if not switching panes
         if (flyout.css('left') == "0px") {
-            if($(el).hasClass('clicked')) {
+            if($(target).hasClass('clicked')) {
                 flyout.animate({left: targetLeft}, 200, "swing", () => {
                     // If closing, remove all clicked classes.
                     $(".flyout-expander").removeClass('clicked');
