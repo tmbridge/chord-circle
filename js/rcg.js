@@ -1,5 +1,9 @@
 /* Random Chord Generator */
 
+//TODO: Graceful fail when no elements are selected for a setting group.
+//TODO: RCG memory that will be maintained through browser refresh.
+//TODO: Link checkbox and checkbox container to un/check box on click of container.
+
 const RandomChordGenerator = function() {
 
     /*
