@@ -347,8 +347,10 @@ const RandomChordGenerator = function() {
                     quality
                 ];
 
+                console.log(optionObj);
                 console.log((checkValue(optionObj, selectedElements)));
-                var checked = ((checkValue(optionObj, selectedElements)) ? "checked" : "" );
+                var checked = checkValue(optionObj, selectedElements);
+
 
                 input = $('<input>', {
                     type: "checkbox",
@@ -360,6 +362,12 @@ const RandomChordGenerator = function() {
                     "fullName": fullName,
                     //"checked": "", // TODO: Determined checked-ness by comparing to localStorage.
                 });
+
+
+                if(checked > -1) {
+                    console.log("checking checkbox:" + $(input).attr('value'));
+                    $(input).attr("checked", "checked");
+                }
 
                 // Append click event to link container and input clicks.
                /* inputContainer.on('click', (el) => {
@@ -408,6 +416,8 @@ const RandomChordGenerator = function() {
 
                     }
                     else {
+                        console.log("removing:");
+                        console.log(optionObj);
                         newElements = removeA(currentElements, optionObj);
                         //setChordQualities(newElements);
 
@@ -416,11 +426,13 @@ const RandomChordGenerator = function() {
                     // without the following conditional. something like:
                     // $(window)['settingFunctionName'](newElements), I think.
                     if ($(chkbox).hasClass('chord-quality-setting')) {
-                        console.log("newElements");
+                        console.log("settingsNewQualities");
                         console.log(newElements);
                         setChordQualities(newElements);
                     }
                     else if ($(chkbox).hasClass('root-note-setting')) {
+                        console.log("settingsNewRoots");
+                        console.log(newElements);
                         setChordRootNotes(newElements);
                     }
 
@@ -477,7 +489,7 @@ const RandomChordGenerator = function() {
 
         for(var i=0; i<arr.length; i++){
             var name = arr[i];
-            if(name == value){
+            if(name['label'] == value['label']){
                 status = i;
                 break;
             }
