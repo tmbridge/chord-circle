@@ -418,7 +418,8 @@ const RandomChordGenerator = function() {
                     else {
                         console.log("removing:");
                         console.log(optionObj);
-                        newElements = removeA(currentElements, optionObj);
+
+                        newElements = removeFilter(currentElements, optionObj);
                         //setChordQualities(newElements);
 
                     }
@@ -458,6 +459,10 @@ const RandomChordGenerator = function() {
             });
         });
         return settingsFormContainer;
+    }
+
+    function removeFilter(array, element) {
+        return array.filter(el => el['label'] !== element['label']);
     }
 
     /* Helper Functions */
