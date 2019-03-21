@@ -33,7 +33,7 @@ h3,p{
     color:#006400
 }
 
-.settings-form-header {
+.form-header {
     width: 100%;
     position: relative;
     float: left;
@@ -57,22 +57,26 @@ h3,p{
     font-size: 13px;
 }
 
-input#submit{
-    width:100%;
+.btn {
+    width:50%;
     margin:10px 15px 10px 0;
     padding:5px;
     background-color:#3fb8e8;
     box-shadow:0 3px 0 0 #3293ba;
     border-radius:3px;
     color:#fff;
-    height:41px;
     font-size:16px
 }
-textarea{
+
+textarea,
+input.slice-input,
+input#home-chord-input {
     margin:10px 0;
     padding:5px;
     box-shadow:1px 1px 1px 1px gray;
-    border-radius:3px
+    border-radius:3px;
+    text-align: center;
+    width: 75%;
 }
 div#container{
     margin:50px auto;
