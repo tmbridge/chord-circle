@@ -87,3 +87,7 @@ text.inner-circle {
 .arc {
   z-index: 1000;
 }
+
+.btn {
+  color: #FFFFFF;
+}

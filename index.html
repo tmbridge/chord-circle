@@ -84,7 +84,7 @@
                   <!-- Home Chord Input -->
                   <div class="form-group">
                       <label for="home-chord-input" class="col-lg-2 control-label"><h3>Home Chord</h3></label>
-                      <div class="col-lg-10">
+                      <div class="col-lg-10 home-chord-input-container">
                           <button class="btn btn-primary button-image random-home-chord-button" id="random-home-chord-btn[]">
                               <img class='random-btn-image' src="./images/btn-randomize.svg" />
                           </button>
@@ -96,7 +96,10 @@
                       <!-- Repeater Heading -->
                       <div class="repeater-heading">
                           <button class="btn btn-primary button-image repeater-add-btn" id="repeater-add-btn">
-                              Add Chord
+                              <img class='add-btn-image' src="./images/btn-add.svg" />
+                              <div class="btn-label" id="add-btn-label">
+                                  Add Chord
+                              </div>
                           </button>
                       </div>
                       <hr>
@@ -106,18 +109,20 @@
                               <div class="form-group">
                                   <label for="" class="col-lg-2 control-label"></label>
                                   <div class="col-lg-10">
+                                      <!-- Repeater Randomize Button -->
                                       <button class="btn btn-primary button-image random-chord-button" id="random-chord-btn[]">
                                           <img class='random-btn-image' src="./images/btn-randomize.svg" />
                                       </button>
                                       <input type="text" class="slice-input" id="slice-inputs[]" placeholder="Am" data-name="">
+                                      <button id="remove-btn" class="btn btn-danger button-image repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
+                                          <img class='remove-btn-image' src="./images/btn-remove.svg" />
+                                      </button>
                                   </div>
                               </div>
                           </div>
                           <!-- Repeater Remove Btn -->
                           <div class="pull-right">
-                              <button id="remove-btn" class="btn btn-danger button-image repeater-remove-btn" onclick="$(this).parents('.items').remove();bindSlices();">
-                                <img class='remove-btn-image' src="./images/btn-remove.svg" />
-                              </button>
+
                           </div>
                           <hr>
                           <div class="clearfix"></div>
@@ -155,7 +160,7 @@
             showFirstItemToDefault: false,
         });
     </script>
-    <div id="home-chord-swap-dialog">
+    <div id="home-chord-swap-dialog" style="display: none;">
         Click a chord slice to swap with the home chord.
     </div>
 </body>

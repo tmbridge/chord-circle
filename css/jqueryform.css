@@ -39,6 +39,12 @@ h3,p{
     float: left;
 }
 
+.settings-form-header {
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
 .settings-form-input-container{
     position: relative;
     float: left;
@@ -66,8 +72,15 @@ input#home-chord-input {
     box-shadow:1px 1px 1px 1px gray;
     border-radius:3px;
     text-align: center;
-    width: 75%;
+    width: 50%;
+    font-size:1.4rem;
 }
+
+.home-chord-input-container {
+    position: relative;
+    left: -17px;
+}
+
 div#container{
     margin:50px auto;
     width:960px
@@ -77,36 +90,38 @@ h2{
     color:#006400;
     text-shadow:1px 1px 1px gray
 }
-/*
-.repeater-remove-btn {
-  background: url("../images/btn-remove.svg");
-  height: 33px;
-  background-size: contain;
-  width: 33px;
-}
-
-.random-chord-button {
-  background: url("../images/btn-randomize.svg");
-  height: 33px;
-  background-size: contain;
-  width: 33px;
-}*/
 
 .button-image {
     display: inline-block;
-    vertical-align: text-top;
     background-color: transparent;
     background-position : center center;
     background-repeat:no-repeat;
     text-align: center;
     padding: 2px;
     height: 22px;
+    margin: 5px;
+}
+
+.add-btn-image {
+    width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
+}
+
+#add-btn-label {
+    display: inherit;
+    position: relative;
+    top: -4px;
 }
 
 .remove-btn-image {
     width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
 }
 
 .random-btn-image {
     width: 16px;
+    -webkit-filter: invert(1); /* safari 6.0 - 9.0 */
+    filter: invert(1)
 }
