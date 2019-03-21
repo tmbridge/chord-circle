@@ -4,7 +4,7 @@ CSS settings for HTML Div form1 (Dynamically Created using jQuery)
 ------------------------------------------------------------------*/
 div#chord-circle-chords-form{
     position: relative;
-    width: 200px;
+    width: 275px;
     height: 100%;
     border:2px solid #a5a5a5;
     padding:0px;
@@ -17,7 +17,7 @@ div#chord-circle-chords-form{
 div#chord-circle-settings-form{
     display: none;
     position: relative;
-    width: 200px;
+    width: 275px;
     height: 100%;
     border:2px solid #a5a5a5;
     padding:0px;
