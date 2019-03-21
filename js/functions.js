@@ -390,7 +390,7 @@ $(document).ready(function () {
     });
 
     // Show flyout if setting is set to show on load.
-    showChordsFlyoutOnLoad = 3;
+    showChordsFlyoutOnLoad = 1;
     if(showChordsFlyoutOnLoad == 1) {
         $("#chords-expand-link").addClass('clicked');
         flyout.css('left', "0px");

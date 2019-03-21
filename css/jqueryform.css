@@ -57,16 +57,6 @@ h3,p{
     font-size: 13px;
 }
 
-.btn {
-    width:50%;
-    margin:10px 15px 10px 0;
-    padding:5px;
-    background-color:#3fb8e8;
-    box-shadow:0 3px 0 0 #3293ba;
-    border-radius:3px;
-    color:#fff;
-    font-size:16px
-}
 
 textarea,
 input.slice-input,
@@ -86,4 +76,37 @@ h2{
     font-family:'Raleway',sans-serif;
     color:#006400;
     text-shadow:1px 1px 1px gray
+}
+/*
+.repeater-remove-btn {
+  background: url("../images/btn-remove.svg");
+  height: 33px;
+  background-size: contain;
+  width: 33px;
+}
+
+.random-chord-button {
+  background: url("../images/btn-randomize.svg");
+  height: 33px;
+  background-size: contain;
+  width: 33px;
+}*/
+
+.button-image {
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+    text-align: center;
+    padding: 2px;
+    height: 22px;
+}
+
+.remove-btn-image {
+    width: 16px;
+}
+
+.random-btn-image {
+    width: 16px;
 }
