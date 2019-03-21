@@ -379,16 +379,7 @@ const RandomChordGenerator = function() {
 
                     }
                     else {
-                        // Remove the clicked obj
-                        newElements = $.grep(currentElements, function(e){
-                            console.log(currentElements.length);
-                            if (currentElements.length > 1) {
-                                return e.label != optionObj.label;
-                            }
-                            else {
-                                return [];
-                            }
-                        });
+                        newElements = removeA(currentElements, optionObj);
                         //setChordQualities(newElements);
 
                     }
